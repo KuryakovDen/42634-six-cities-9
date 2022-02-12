@@ -1,7 +1,7 @@
 import React from 'react';
 import OfferCard from '../../offer-card/offer-card';
 
-function FavoritesScreen() {
+function FavoritesScreen(): JSX.Element {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
