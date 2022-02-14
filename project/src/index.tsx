@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/app/app';
-
-const Setting = {
-  PLACES_COUNT: 5,
-};
+import NotFoundScreen from './components/screens/not-found-screen/not-found-screen';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placesCount={Setting.PLACES_COUNT} />
+    <NotFoundScreen />
   </React.StrictMode>,
   document.getElementById('root'));
