@@ -1,5 +1,5 @@
 import React from 'react';
-import OfferCard from '../../offer-card/offer-card';
+import OfferCard from '../../components/offer-card/offer-card';
 
 function FavoritesScreen(): JSX.Element {
   return (
