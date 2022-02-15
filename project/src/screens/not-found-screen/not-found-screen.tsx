@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -26,7 +28,7 @@ function NotFoundScreen(): JSX.Element {
                 <p>Not found</p>
               </div>
 
-              <p>Go to main page</p>
+              <Link to={AppRoute.Main} style={{ color: 'blueviolet', textDecoration: 'underline' }}>Go to main page</Link>
             </section>
           </div>
         </div>
