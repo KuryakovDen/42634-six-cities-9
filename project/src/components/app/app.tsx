@@ -15,7 +15,7 @@ function App({ placesCount }: AppProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} />} />
-        <Route path={AppRoute.SignIn} element={<LoginScreen />} />
+        <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route path={AppRoute.Favorites} element={<FavoritesScreen />} />
         <Route path={AppRoute.Offer} element={<OfferScreen />} />
         <Route path={'*'} element={<NotFoundScreen />} />
