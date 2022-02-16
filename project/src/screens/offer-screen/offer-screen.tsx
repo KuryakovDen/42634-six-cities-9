@@ -3,8 +3,13 @@ import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
+import {AuthStatus} from '../../const';
 
-function OfferScreen(): JSX.Element {
+type OfferScreenProps = {
+  authStatus: AuthStatus;
+}
+
+function OfferScreen({ authStatus }: OfferScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header />
@@ -127,7 +132,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <section className="property__reviews reviews">
                 <ReviewsList />
-                <ReviewForm />
+                { authStatus === AuthStatus.Auth && <ReviewForm /> }
               </section>
             </div>
           </div>
