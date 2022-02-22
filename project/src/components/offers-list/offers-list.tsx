@@ -1,14 +1,15 @@
 import OfferCard from '../offer-card/offer-card';
 import React from 'react';
+import {Offer} from '../../types/offer';
 
-function OffersList(): JSX.Element {
+type OffersListProps = {
+  offers: Offer[];
+};
+
+function OffersList({ offers }: OffersListProps): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
-      <OfferCard image={'img/apartment-01.jpg'} price={100} />
-      <OfferCard image={'img/apartment-02.jpg'} price={100} />
-      <OfferCard image={'img/apartment-03.jpg'} price={100} />
-      <OfferCard image={'img/apartment-02.jpg'} price={100} />
-      <OfferCard image={'img/apartment-01.jpg'} price={100} />
+      {offers.map((offer) => <OfferCard  key={offer.id} offer={offer}/>)}
     </div>
   );
 }

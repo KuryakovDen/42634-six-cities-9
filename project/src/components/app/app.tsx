@@ -17,10 +17,10 @@ function App({ placesCount, offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} />} />
+        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><FavoritesScreen /></PrivateRoute>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen authStatus={AuthStatus.NoAuth} />} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
+        <Route path={AppRoute.Offer} element={<OfferScreen authStatus={AuthStatus.NoAuth} offers={offers} />} />
         <Route path={'*'} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

@@ -4,12 +4,14 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus} from '../../const';
+import {Offer} from '../../types/offer';
 
 type OfferScreenProps = {
   authStatus: AuthStatus;
+  offers: Offer[];
 }
 
-function OfferScreen({ authStatus }: OfferScreenProps): JSX.Element {
+function OfferScreen({ authStatus, offers }: OfferScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header />
@@ -141,7 +143,7 @@ function OfferScreen({ authStatus }: OfferScreenProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList />
+            <OffersList offers={offers} />
           </section>
         </div>
       </main>

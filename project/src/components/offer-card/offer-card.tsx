@@ -1,11 +1,11 @@
 import React from 'react';
+import {Offer} from '../../types/offer';
 
 type OfferCardProps = {
-  image: string;
-  price: number;
+  offer: Offer;
 };
 
-function OfferCard({ image, price }: OfferCardProps): JSX.Element {
+function OfferCard({ offer }: OfferCardProps): JSX.Element {
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">
@@ -13,13 +13,13 @@ function OfferCard({ image, price }: OfferCardProps): JSX.Element {
       </div>s
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={'image1.src'} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{price}</b>
+            <b className="place-card__price-value">&euro;{1}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
