@@ -9,18 +9,17 @@ import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import {Offer} from '../../types/offer';
 
 type AppProps = {
-  placesCount: number;
   offers: Offer[];
 };
 
-function App({ placesCount, offers }: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen placesCount={placesCount} offers={offers} />} />
+        <Route path={AppRoute.Main} element={<MainScreen offers={offers} />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
         <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
-        <Route path={AppRoute.Offer} element={<OfferScreen authStatus={AuthStatus.NoAuth} offers={offers} />} />
+        <Route path={AppRoute.Offer} element={<OfferScreen authStatus={AuthStatus.Auth} offers={offers} />} />
         <Route path={'*'} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>

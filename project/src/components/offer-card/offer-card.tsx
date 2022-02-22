@@ -11,6 +11,7 @@ type OfferCardProps = {
 
 function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.Element {
   const { description, type, price, previewImage, isFavorite, isPremium, rating } = offer;
+
   const RATING_COEFFICIENT = 20;
   const roundedRating = Math.round(rating);
 
