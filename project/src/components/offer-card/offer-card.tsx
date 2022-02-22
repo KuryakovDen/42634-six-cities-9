@@ -1,5 +1,7 @@
 import React from 'react';
 import {Offer} from '../../types/offer';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 type OfferCardProps = {
   offer: Offer;
@@ -45,7 +47,7 @@ function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{description}</a>
+          <Link to={AppRoute.Offer}>{description}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
