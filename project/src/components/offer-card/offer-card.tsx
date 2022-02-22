@@ -3,14 +3,17 @@ import {Offer} from '../../types/offer';
 
 type OfferCardProps = {
   offer: Offer;
+  onMouseOver: () => void;
+  onMouseLeave: () => void;
 };
 
-function OfferCard({ offer }: OfferCardProps): JSX.Element {
+function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.Element {
   const { description, type, price, previewImage, isFavorite, isPremium, rating } = offer;
+  const RATING_COEFFICIENT = 20;
   const roundedRating = Math.round(rating);
 
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card" onMouseOver={onMouseOver} onMouseLeave={onMouseLeave}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -37,7 +40,7 @@ function OfferCard({ offer }: OfferCardProps): JSX.Element {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             {roundedRating}
-            <span style={{width: `${roundedRating * 20}%`}} />
+            <span style={{width: `${roundedRating * RATING_COEFFICIENT}%`}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

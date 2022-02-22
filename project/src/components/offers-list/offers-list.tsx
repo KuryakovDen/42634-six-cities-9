@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import React from 'react';
+import React, {useState} from 'react';
 import {Offer} from '../../types/offer';
 
 type OffersListProps = {
@@ -7,9 +7,17 @@ type OffersListProps = {
 };
 
 function OffersList({ offers }: OffersListProps): JSX.Element {
+  const [, setActiveOffer] = useState<null | number>(null);
+
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <OfferCard  key={offer.id} offer={offer}/>)}
+      {offers.map((offer) => (
+        <OfferCard
+          key={offer.id}
+          offer={offer}
+          onMouseOver={() => setActiveOffer(offer.id)}
+          onMouseLeave={() => setActiveOffer(null)}
+        />))}
     </div>
   );
 }
