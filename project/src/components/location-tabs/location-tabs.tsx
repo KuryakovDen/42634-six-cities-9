@@ -16,7 +16,6 @@ function LocationTabs(): JSX.Element {
                   <span>{location}</span>
                 </a>
               </li>))
-
           }
         </ul>
       </section>
