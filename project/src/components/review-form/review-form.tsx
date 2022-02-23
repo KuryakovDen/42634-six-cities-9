@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from 'react';
+import React, {ChangeEvent, Fragment, useState} from 'react';
 import {MAX_REVIEW_STARS_COUNT} from '../../const';
 
 enum ValidReviewTextLength {
@@ -18,7 +18,7 @@ function ReviewForm(): JSX.Element {
   });
 
   const ratingStars = new Array(MAX_REVIEW_STARS_COUNT).fill(null).map((el, index) => el = index + 1).reverse();
-  const setField = ({target}: any) => setFormData((prevState: any) => ({...prevState, [target.name]: target.value}));
+  const setField = ({target}: ChangeEvent<HTMLInputElement>) => setFormData((prevState) => ({...prevState, [target.name]: target.value}));
 
   return (
     <form className="reviews__form form" action="#" method="post">
