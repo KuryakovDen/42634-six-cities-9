@@ -1,10 +1,5 @@
 import React, {Fragment, useState} from 'react';
-import {MAX_REVIEW_STARS_COUNT} from '../../const';
-
-enum ValidReviewTextLength {
-  Min = 50,
-  Max = 300
-}
+import {MAX_REVIEW_STARS_COUNT, ValidReviewTextLength} from '../../const';
 
 type ReviewForm = {
   rating: null | number;
