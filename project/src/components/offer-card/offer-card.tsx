@@ -1,7 +1,7 @@
 import React from 'react';
 import {Offer} from '../../types/offer';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, RATING_COEFFICIENT} from '../../const';
 
 type OfferCardProps = {
   offer: Offer;
@@ -12,7 +12,6 @@ type OfferCardProps = {
 function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.Element {
   const { title, type, price, previewImage, isFavorite, isPremium, rating } = offer;
 
-  const RATING_COEFFICIENT = 20;
   const roundedRating = Math.round(rating);
 
   return (

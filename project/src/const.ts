@@ -1,3 +1,5 @@
+export const RATING_COEFFICIENT = 20;
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',

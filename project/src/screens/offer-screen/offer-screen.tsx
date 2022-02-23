@@ -5,13 +5,15 @@ import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus} from '../../const';
 import {Offer} from '../../types/offer';
+import {Review} from '../../types/review';
 
 type OfferScreenProps = {
   authStatus: AuthStatus;
   offers: Offer[];
+  reviews: Review[];
 }
 
-function OfferScreen({ authStatus, offers }: OfferScreenProps): JSX.Element {
+function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Element {
   const [ firstOffer ] = offers;
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = firstOffer;
 
@@ -89,7 +91,7 @@ function OfferScreen({ authStatus, offers }: OfferScreenProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList />
+                <ReviewsList reviews={reviews} />
                 { authStatus === AuthStatus.Auth && <ReviewForm /> }
               </section>
             </div>
