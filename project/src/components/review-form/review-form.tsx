@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Fragment, useState} from 'react';
+import React, {Fragment, useState} from 'react';
 import {MAX_REVIEW_STARS_COUNT} from '../../const';
 
 enum ValidReviewTextLength {
