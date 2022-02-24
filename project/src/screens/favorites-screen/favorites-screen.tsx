@@ -1,8 +1,13 @@
 import React from 'react';
-import OfferCard from '../../components/offer-card/offer-card';
 import Header from '../../components/header/header';
+import OffersList from '../../components/offers-list/offers-list';
+import {Offer} from '../../types/offer';
 
-function FavoritesScreen(): JSX.Element {
+type FavoritesScreenProps = {
+  offers: Offer[];
+};
+
+function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
   return (
     <div className="page">
       <Header />
@@ -21,9 +26,7 @@ function FavoritesScreen(): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OfferCard image={'img/apartment-01.jpg'} price={100} />
-                  <OfferCard image={'img/apartment-02.jpg'} price={100} />
-                  <OfferCard image={'img/apartment-03.jpg'} price={100} />
+                  <OffersList offers={offers} />
                 </div>
               </li>
 
