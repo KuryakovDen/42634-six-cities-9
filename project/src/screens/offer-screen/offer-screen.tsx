@@ -6,6 +6,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus} from '../../const';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
+import {Navigate, useParams} from 'react-router-dom';
 
 type OfferScreenProps = {
   authStatus: AuthStatus;
@@ -14,8 +15,14 @@ type OfferScreenProps = {
 }
 
 function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Element {
-  const [ firstOffer ] = offers;
-  const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = firstOffer;
+  const { id } = useParams();
+  const currentOffer: Offer | undefined = offers.find((offer) => offer.id === Number(id)) || undefined;
+
+  if (currentOffer === undefined) {
+    return <Navigate to={'*'} />;
+  }
+
+  const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;
 
   return (
     <div className="page">

@@ -10,7 +10,7 @@ type OfferCardProps = {
 };
 
 function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.Element {
-  const { title, type, price, previewImage, isFavorite, isPremium, rating } = offer;
+  const { id, title, type, price, previewImage, isFavorite, isPremium, rating } = offer;
 
   const roundedRating = Math.round(rating);
 
@@ -47,7 +47,7 @@ function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer}>{title}</Link>
+          <Link to={`${AppRoute.Offer}/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
