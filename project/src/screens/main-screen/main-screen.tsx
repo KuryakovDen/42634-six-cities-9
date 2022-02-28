@@ -29,7 +29,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none' }}>
-                <Map />
+                <Map city={offers[0].city} />
               </section>
             </div>
           </div>
