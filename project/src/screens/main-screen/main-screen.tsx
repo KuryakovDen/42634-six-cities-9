@@ -4,6 +4,7 @@ import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersSorting from '../../components/offers-sorting/offers-sorting';
 import OffersList from '../../components/offers-list/offers-list';
 import {Offer} from '../../types/offer';
+import Map from '../../components/map/map';
 
 type MainScreenProps = {
   offers: Offer[];
@@ -27,7 +28,9 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map" style={{ backgroundImage: 'none' }}>
+                <Map />
+              </section>
             </div>
           </div>
         </div>
