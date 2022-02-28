@@ -12,9 +12,9 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: CityLocation
       const instance = leaflet.map(mapRef.current, {
         center: {
           lat: latitude,
-          lng: longitude
+          lng: longitude,
         },
-        zoom: 10
+        zoom: 10,
       });
 
       leaflet.tileLayer(
@@ -22,7 +22,7 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: CityLocation
         {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         },
-      ).addTo(instance)
+      ).addTo(instance);
 
       setMap(instance);
     }
