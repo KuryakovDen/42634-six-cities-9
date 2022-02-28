@@ -11,6 +11,9 @@ type MainScreenProps = {
 }
 
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
+  const defaultCity = offers[0].city;
+  const points = offers.map((offer) => offer.location);
+
   return (
     <div className="page page--gray page--main">
       <Header />
@@ -29,7 +32,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
-                <Map city={offers[0].city} />
+                <Map city={defaultCity} points={points} />
               </section>
             </div>
           </div>
