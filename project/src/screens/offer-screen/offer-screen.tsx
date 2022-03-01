@@ -18,7 +18,7 @@ function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Ele
   const { id } = useParams();
   const currentOffer: Offer | undefined = offers.find((offer) => offer.id === Number(id)) || undefined;
   const neighborOffers = offers
-    .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name)
+    .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
     .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
 
   if (currentOffer === undefined) {
