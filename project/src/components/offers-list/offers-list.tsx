@@ -1,13 +1,14 @@
 import OfferCard from '../offer-card/offer-card';
-import React, {useState} from 'react';
-import {Offer} from '../../types/offer';
+import React from 'react';
+import {Offer, OfferLocation} from '../../types/offer';
 
 type OffersListProps = {
   offers: Offer[];
+  onMouseOver?: (location: OfferLocation) => void;
+  onMouseLeave?: (location: null) => void;
 };
 
-function OffersList({ offers }: OffersListProps): JSX.Element {
-  const [, setActiveOffer] = useState<null | number>(null);
+function OffersList({ offers, onMouseLeave, onMouseOver }: OffersListProps): JSX.Element {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -15,8 +16,8 @@ function OffersList({ offers }: OffersListProps): JSX.Element {
         <OfferCard
           key={offer.id}
           offer={offer}
-          onMouseOver={() => setActiveOffer(offer.id)}
-          onMouseLeave={() => setActiveOffer(null)}
+          onMouseOver={() => onMouseOver && onMouseOver(offer.location)}
+          onMouseLeave={() => onMouseLeave && onMouseLeave(null)}
         />))}
     </div>
   );

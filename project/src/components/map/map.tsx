@@ -8,9 +8,10 @@ import {URL_ACTIVE_MARKER, URL_MARKER_DEFAULT} from '../../const';
 type MapProps = {
   city: CityLocation;
   points: OfferLocation[];
+  activeOfferLocation: OfferLocation | null;
 };
 
-function Map({ city, points }: MapProps): JSX.Element {
+function Map({ city, points, activeOfferLocation }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -34,7 +35,14 @@ function Map({ city, points }: MapProps): JSX.Element {
         marker({
           lat: latitude,
           lng: longitude,
-        }, { icon: defaultIcon })
+        }, {
+          icon:
+            (activeOfferLocation &&
+              point.latitude === activeOfferLocation.latitude &&
+              point.longitude === activeOfferLocation.longitude
+            )
+              ? activeIcon
+              : defaultIcon })
           .addTo(map);
       });
     }
