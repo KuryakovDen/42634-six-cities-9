@@ -3,10 +3,11 @@ import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
-import {AuthStatus} from '../../const';
+import {AuthStatus, MAX_NEIGHBOR_OFFERS_COUNT} from '../../const';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {Navigate, useParams} from 'react-router-dom';
+import Map from '../../components/map/map';
 
 type OfferScreenProps = {
   authStatus: AuthStatus;
@@ -16,7 +17,12 @@ type OfferScreenProps = {
 
 function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
+
+  const points = offers.map((offer) => offer.location);
   const currentOffer: Offer | undefined = offers.find((offer) => offer.id === Number(id)) || undefined;
+  const neighborOffers = offers
+    .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
+    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
 
   if (currentOffer === undefined) {
     return <Navigate to={'*'} />;
@@ -103,12 +109,14 @@ function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Ele
               </section>
             </div>
           </div>
-          <section className="property__map map" />
+          <section className="property__map map" style={{ backgroundImage: 'none', height: '700px', marginBottom: '80px' }}>
+            <Map city={currentOffer.city} points={points} activeOfferLocation={currentOffer.location} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={offers} />
+            <OffersList offers={neighborOffers} />
           </section>
         </div>
       </main>
