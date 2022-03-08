@@ -9,7 +9,7 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
-  activeCity: 'Amsterdam',
+  activeCity: 'Paris',
   offerList: null,
 };
 
