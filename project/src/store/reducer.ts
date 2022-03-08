@@ -9,14 +9,14 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
-  activeCity: 'Paris',
+  activeCity: 'Amsterdam',
   offerList: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeActiveCity, (state) => {
-      state.activeCity = 'Amsterdam';
+    .addCase(changeActiveCity, (state, action) => {
+      state.activeCity = action.payload;
     })
     .addCase(setOfferList, (state) => {
       state.offerList = offers;
