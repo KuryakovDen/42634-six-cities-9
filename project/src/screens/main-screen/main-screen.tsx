@@ -7,17 +7,14 @@ import {Offer, OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks';
 
-type MainScreenProps = {
-  offers: Offer[];
-}
-
-function MainScreen({ offers }: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
   const activeLocation = useAppSelector((state) => state.activeLocation);
   const sortingOption = useAppSelector((state) => state.activeSortingOption);
 
-  const offersForActiveLocation = offers.filter((offer) => offer.city.name === activeLocation);
+  const offerList = useAppSelector((state) => state.offerList);
+  const offersForActiveLocation = offerList ? offerList.filter((offer) => offer.city.name === activeLocation) : [];
   const points = offersForActiveLocation.map((offer) => offer.location);
 
   const getOffersBySorting = (option: string): Offer[] => {
@@ -47,7 +44,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
               <OffersSorting />
-              <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
+              { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
