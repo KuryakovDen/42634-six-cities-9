@@ -6,22 +6,29 @@ import FavoritesScreen from '../../screens/favorites-screen/favorites-screen';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../../screens/offer-screen/offer-screen';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
+import {useAppDispatch} from '../../hooks';
+import {setOfferList} from '../../store/action';
+import {useEffect} from 'react';
 
 type AppProps = {
-  offers: Offer[];
   reviews: Review[];
 };
 
-function App({ offers, reviews }: AppProps): JSX.Element {
+function App({ reviews }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setOfferList());
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen offers={offers} />} />
+        <Route path={AppRoute.Main} element={<MainScreen />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><FavoritesScreen offers={offers} /></PrivateRoute>} />
-        <Route path={AppRoute.OfferId} element={<OfferScreen authStatus={AuthStatus.Auth} offers={offers} reviews={reviews} />} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={AuthStatus.NoAuth}><FavoritesScreen offers={[]} /></PrivateRoute>} />
+        <Route path={AppRoute.OfferId} element={<OfferScreen authStatus={AuthStatus.Auth} reviews={reviews} />} />
         <Route path={'*'} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
