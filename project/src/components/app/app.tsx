@@ -8,6 +8,9 @@ import OfferScreen from '../../screens/offer-screen/offer-screen';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
+import {useAppDispatch} from '../../hooks';
+import {setOfferList} from '../../store/action';
+import {useEffect} from 'react';
 
 type AppProps = {
   offers: Offer[];
@@ -15,6 +18,10 @@ type AppProps = {
 };
 
 function App({ offers, reviews }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {dispatch(setOfferList());}, []);
+
   return (
     <BrowserRouter>
       <Routes>

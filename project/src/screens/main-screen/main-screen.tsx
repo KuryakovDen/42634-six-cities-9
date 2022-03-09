@@ -14,9 +14,10 @@ type MainScreenProps = {
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
-  const points = offers.map((offer) => offer.location);
   const activeCity = useAppSelector((state) => state.activeCity);
-  const offersForActiveCity = offers.filter((offer) => offer.city.name === activeCity);
+  const offerList = useAppSelector((state) => state.offerList);
+  const offersForActiveCity = offerList ? offerList.filter((offer) => offer.city.name === activeCity) : [];
+  const points = offersForActiveCity.map((offer) => offer.location);
 
   return (
     <div className="page page--gray page--main">
@@ -32,7 +33,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersForActiveCity.length} places to stay in {activeCity}</b>
               <OffersSorting />
-              <OffersList offers={offersForActiveCity} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
+              { offerList && <OffersList offers={offersForActiveCity} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
