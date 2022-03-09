@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {changeActiveCity} from '../../store/action';
+import {changeActiveLocation} from '../../store/action';
 
 function LocationTabs(): JSX.Element {
   const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-  const activeCity = useAppSelector((state) => state.activeCity);
+  const activeLocation = useAppSelector((state) => state.activeLocation);
   const dispatch = useAppDispatch();
 
   return (
@@ -13,8 +13,8 @@ function LocationTabs(): JSX.Element {
         <ul className="locations__list tabs__list">
           {
             locations.map((location) => (
-              <li className="locations__item" key={location} onClick={() => dispatch(changeActiveCity(location))}>
-                <a className={`${activeCity === location && 'tabs__item--active'} locations__item-link tabs__item`} href="#">
+              <li className="locations__item" key={location} onClick={() => dispatch(changeActiveLocation(location))}>
+                <a className={`${activeLocation === location && 'tabs__item--active'} locations__item-link tabs__item`} href="#">
                   <span>{location}</span>
                 </a>
               </li>))

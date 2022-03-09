@@ -14,9 +14,9 @@ type MainScreenProps = {
 function MainScreen({ offers }: MainScreenProps): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
-  const points = offers.map((offer) => offer.location);
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const offersForActiveCity = offers.filter((offer) => offer.city.name === activeCity);
+  const activeLocation = useAppSelector((state) => state.activeLocation);
+  const offersForActiveLocation = offers.filter((offer) => offer.city.name === activeLocation);
+  const points = offersForActiveLocation.map((offer) => offer.location);
 
   return (
     <div className="page page--gray page--main">
@@ -30,13 +30,13 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersForActiveCity.length} places to stay in {activeCity}</b>
+              <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
               <OffersSorting />
-              <OffersList offers={offersForActiveCity} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
+              <OffersList offers={offersForActiveLocation} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
-                { offersForActiveCity.length > 0 && <Map city={offersForActiveCity[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
+                { offersForActiveLocation.length > 0 && <Map city={offersForActiveLocation[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
               </section>
             </div>
           </div>
