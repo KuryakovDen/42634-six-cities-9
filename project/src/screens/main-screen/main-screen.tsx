@@ -5,7 +5,7 @@ import OffersSorting from '../../components/offers-sorting/offers-sorting';
 import OffersList from '../../components/offers-list/offers-list';
 import {Offer, OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
 
 type MainScreenProps = {
   offers: Offer[];
@@ -15,8 +15,23 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
   const activeLocation = useAppSelector((state) => state.activeLocation);
+  const sortingOption = useAppSelector((state) => state.activeSortingOption);
+
   const offersForActiveLocation = offers.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
+
+  const getOffersBySorting = (option: string): Offer[] => {
+    switch (option) {
+      case 'Price: low to high':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
+      case 'Price: high to low':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => nextOffer.price - prevOffer.price);
+      case 'Top rated first':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
+      default:
+        return offersForActiveLocation;
+    }
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -32,7 +47,7 @@ function MainScreen({ offers }: MainScreenProps): JSX.Element {
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
               <OffersSorting />
-              <OffersList offers={offersForActiveLocation} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
+              <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
