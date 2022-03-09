@@ -1,11 +1,8 @@
 import React from 'react';
 import { SpinnerDiamond } from 'spinners-react';
+import {SPINNER_COLOR, SPINNER_SIZE, SPINNER_SPEED} from '../../const';
 
 function Spinner(): JSX.Element {
-  const SPINNER_SIZE = 120;
-  const SPINNER_COLOR = '#4481c3';
-  const SPINNER_SPEED = 200;
-
   return (
     <SpinnerDiamond
       size={SPINNER_SIZE}
