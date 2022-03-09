@@ -8,21 +8,22 @@ import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {Navigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
+import {useAppSelector} from '../../hooks';
 
 type OfferScreenProps = {
   authStatus: AuthStatus;
-  offers: Offer[];
   reviews: Review[];
 }
 
-function OfferScreen({ authStatus, offers, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen({ authStatus, reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
 
-  const points = offers.map((offer) => offer.location);
-  const currentOffer: Offer | undefined = offers.find((offer) => offer.id === Number(id)) || undefined;
-  const neighborOffers = offers
+  const offerList = useAppSelector((state) => state.offerList);
+  const points = offerList ? offerList.map((offer) => offer.location) : [];
+  const currentOffer: Offer | undefined = offerList && offerList.find((offer) => offer.id === Number(id)) || undefined;
+  const neighborOffers = offerList ? offerList
     .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
-    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
+    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT) : [];
 
   if (currentOffer === undefined) {
     return <Navigate to={'*'} />;

@@ -3,15 +3,11 @@ import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersSorting from '../../components/offers-sorting/offers-sorting';
 import OffersList from '../../components/offers-list/offers-list';
-import {Offer, OfferLocation} from '../../types/offer';
+import {OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 
-type MainScreenProps = {
-  offers: Offer[];
-}
-
-function MainScreen({ offers }: MainScreenProps): JSX.Element {
+function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
   const activeCity = useAppSelector((state) => state.activeCity);
