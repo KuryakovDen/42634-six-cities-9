@@ -3,10 +3,10 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeActiveSortingOption} from '../../store/action';
 
 function OffersSorting(): JSX.Element {
+  const [open, setOpen] = useState(false);
+
   const sortingOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
   const dispatch = useAppDispatch();
-
-  const [open, setOpen] = useState(false);
   const activeSortingOption = useAppSelector((state) => state.activeSortingOption);
 
   const onOptionClick = (option: string) => {
