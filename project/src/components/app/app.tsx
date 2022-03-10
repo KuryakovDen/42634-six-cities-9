@@ -8,8 +8,8 @@ import OfferScreen from '../../screens/offer-screen/offer-screen';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import {Review} from '../../types/review';
 import {useAppDispatch} from '../../hooks';
-import {setOfferList} from '../../store/action';
 import {useEffect} from 'react';
+import {loadOffers} from '../../store/action';
 
 type AppProps = {
   reviews: Review[];
@@ -19,7 +19,7 @@ function App({ reviews }: AppProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setOfferList());
+    dispatch(loadOffers([]));
   }, []);
 
   return (
