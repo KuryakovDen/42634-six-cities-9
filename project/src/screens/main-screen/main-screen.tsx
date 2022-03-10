@@ -3,17 +3,32 @@ import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersSorting from '../../components/offers-sorting/offers-sorting';
 import OffersList from '../../components/offers-list/offers-list';
-import {OfferLocation} from '../../types/offer';
+import {Offer, OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
+import {useAppSelector} from '../../hooks';
 
 function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
-  const activeCity = useAppSelector((state) => state.activeCity);
+  const activeLocation = useAppSelector((state) => state.activeLocation);
+  const sortingOption = useAppSelector((state) => state.activeSortingOption);
+
   const offerList = useAppSelector((state) => state.offerList);
-  const offersForActiveCity = offerList ? offerList.filter((offer) => offer.city.name === activeCity) : [];
-  const points = offersForActiveCity.map((offer) => offer.location);
+  const offersForActiveLocation = offerList ? offerList.filter((offer) => offer.city.name === activeLocation) : [];
+  const points = offersForActiveLocation.map((offer) => offer.location);
+
+  const getOffersBySorting = (option: string): Offer[] => {
+    switch (option) {
+      case 'Price: low to high':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
+      case 'Price: high to low':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => nextOffer.price - prevOffer.price);
+      case 'Top rated first':
+        return offersForActiveLocation.sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
+      default:
+        return offersForActiveLocation;
+    }
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -27,13 +42,13 @@ function MainScreen(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersForActiveCity.length} places to stay in {activeCity}</b>
+              <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
               <OffersSorting />
-              { offerList && <OffersList offers={offersForActiveCity} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
+              { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
             </section>
             <div className="cities__right-section">
               <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
-                { offersForActiveCity.length > 0 && <Map city={offersForActiveCity[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
+                { offersForActiveLocation.length > 0 && <Map city={offersForActiveLocation[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
               </section>
             </div>
           </div>
