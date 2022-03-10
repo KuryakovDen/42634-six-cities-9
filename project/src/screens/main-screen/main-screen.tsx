@@ -6,6 +6,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import {Offer, OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
@@ -30,31 +31,35 @@ function MainScreen(): JSX.Element {
     }
   };
 
-  return (
-    <div className="page page--gray page--main">
-      <Header />
+  return offerList && offerList.length > 0 ? (
+    (
+      <div className="page page--gray page--main">
+        <Header />
 
-      <main className="page__main page__main--index">
-        <h1 className="visually-hidden">Cities</h1>
-        <LocationTabs />
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <LocationTabs />
 
-        <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
-              <OffersSorting />
-              { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
-                { offersForActiveLocation.length > 0 && <Map city={offersForActiveLocation[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
+                <OffersSorting />
+                { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
+                  { offersForActiveLocation.length > 0 && <Map city={offersForActiveLocation[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
+                </section>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    )
+  ) : (
+    <Spinner />
   );
 }
 

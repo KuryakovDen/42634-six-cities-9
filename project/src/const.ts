@@ -2,8 +2,8 @@ export const RATING_COEFFICIENT = 20;
 export const MAX_REVIEW_STARS_COUNT = 5;
 export const MAX_REVIEW_COUNT = 10;
 export const MAX_NEIGHBOR_OFFERS_COUNT = 3;
-export const SPINNER_SIZE = 120;
-export const SPINNER_SPEED = 200;
+export const SPINNER_SIZE = 150;
+export const SPINNER_SPEED = 160;
 export const REQUEST_TIMEOUT = 5000;
 
 
