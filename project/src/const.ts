@@ -4,11 +4,13 @@ export const MAX_REVIEW_COUNT = 10;
 export const MAX_NEIGHBOR_OFFERS_COUNT = 3;
 export const SPINNER_SIZE = 120;
 export const SPINNER_SPEED = 200;
+export const REQUEST_TIMEOUT = 5000;
 
 
 export const SPINNER_COLOR = '#4481c3';
 export const URL_MARKER_DEFAULT = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
 export const URL_ACTIVE_MARKER = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const BACKEND_URL = 'https://9.react.pages.academy/six-cities';
 
 export enum ValidReviewTextLength {
   Min = 50,
