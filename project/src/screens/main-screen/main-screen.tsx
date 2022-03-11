@@ -15,7 +15,7 @@ function MainScreen(): JSX.Element {
   const sortingOption = useAppSelector((state) => state.activeSortingOption);
 
   const offerList = useAppSelector((state) => state.offerList);
-  const offersForActiveLocation = offerList ? offerList.filter((offer) => offer.city.name === activeLocation) : [];
+  const offersForActiveLocation = offerList.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
 
   const getOffersBySorting = (option: string): Offer[] => {
@@ -31,7 +31,7 @@ function MainScreen(): JSX.Element {
     }
   };
 
-  return offerList && offerList.length > 0 ? (
+  return offerList.length > 0 ? (
     (
       <div className="page page--gray page--main">
         <Header />

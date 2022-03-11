@@ -19,10 +19,10 @@ function OfferScreen({ authStatus, reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
 
   const offerList = useAppSelector((state) => state.offerList);
-  const currentOffer: Offer | undefined = offerList && offerList.find((offer) => offer.id === Number(id)) || undefined;
-  const neighborOffers = offerList ? offerList
+  const currentOffer: Offer | undefined = offerList.find((offer) => offer.id === Number(id));
+  const neighborOffers = offerList
     .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
-    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT) : [];
+    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
   const points = neighborOffers
     .concat(currentOffer || [])
     .map((offer) => offer.location);

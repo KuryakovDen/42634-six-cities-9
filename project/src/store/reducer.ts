@@ -7,7 +7,7 @@ type initialStateType = {
   authStatus: AuthStatus;
   activeLocation: string;
   activeSortingOption: string;
-  offerList: Offer[] | null;
+  offerList: Offer[];
 };
 
 const initialState: initialStateType = {
