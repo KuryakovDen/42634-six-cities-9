@@ -1,14 +1,17 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {changeActiveLocation, changeActiveSortingOption, loadOffers} from './action';
 import {Offer} from '../types/offer';
+import {AuthStatus} from '../const';
 
 type initialStateType = {
+  authStatus: AuthStatus;
   activeLocation: string;
   activeSortingOption: string;
   offerList: Offer[] | null;
 };
 
 const initialState: initialStateType = {
+  authStatus: AuthStatus.Unknown,
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
   offerList: [],
