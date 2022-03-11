@@ -11,7 +11,7 @@ type initialStateType = {
 const initialState: initialStateType = {
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
-  offerList: null,
+  offerList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
