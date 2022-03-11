@@ -23,7 +23,7 @@ function OfferScreen({ authStatus, reviews }: OfferScreenProps): JSX.Element {
   const neighborOffers = offerList ? offerList
     .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
     .slice(0, MAX_NEIGHBOR_OFFERS_COUNT) : [];
-  const points = [...neighborOffers]
+  const points = neighborOffers
     .concat(currentOffer || [])
     .map((offer) => offer.location);
 
