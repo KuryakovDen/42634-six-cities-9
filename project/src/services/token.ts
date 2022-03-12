@@ -1,0 +1,15 @@
+import {AUTH_TOKEN_KEY_NAME} from '../const';
+
+export type Token = string;
+
+export const getToken = (): Token => {
+  return localStorage.getItem(AUTH_TOKEN_KEY_NAME) || '';
+};
+
+export const saveToken = (token: Token): void => {
+  localStorage.setItem(AUTH_TOKEN_KEY_NAME, token);
+};
+
+export const deleteToken = (): void => {
+  localStorage.removeItem(AUTH_TOKEN_KEY_NAME);
+};
