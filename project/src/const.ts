@@ -20,6 +20,8 @@ export enum ValidReviewTextLength {
 export enum AppRoute {
   Main = '/',
   Login = '/login',
+  Logout = '/logout',
+  Hotels = '/hotels',
   Favorites = '/favorites',
   OfferId = '/offer/:id',
   Offer = '/offer'
