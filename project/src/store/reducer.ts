@@ -1,18 +1,20 @@
-import {offers} from '../mocks/offers';
 import {createReducer} from '@reduxjs/toolkit';
-import {changeActiveLocation, changeActiveSortingOption, setOfferList} from './action';
+import {changeActiveLocation, changeActiveSortingOption, loadOffers} from './action';
 import {Offer} from '../types/offer';
+import {AuthStatus} from '../const';
 
 type initialStateType = {
+  authStatus: AuthStatus;
   activeLocation: string;
   activeSortingOption: string;
-  offerList: Offer[] | null;
+  offerList: Offer[];
 };
 
 const initialState: initialStateType = {
+  authStatus: AuthStatus.Unknown,
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
-  offerList: null,
+  offerList: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -23,8 +25,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeActiveSortingOption, (state, action) => {
       state.activeSortingOption = action.payload;
     })
-    .addCase(setOfferList, (state) => {
-      state.offerList = offers;
+    .addCase(loadOffers, (state, action) => {
+      state.offerList = action.payload;
     });
 });
 

@@ -4,6 +4,9 @@ import App from './components/app/app';
 import {reviews} from './mocks/reviews';
 import {Provider} from 'react-redux';
 import {store} from './store';
+import {loadOffersAction} from './store/api-actions';
+
+store.dispatch(loadOffersAction());
 
 ReactDOM.render(
   <React.StrictMode>
