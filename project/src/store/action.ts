@@ -6,3 +6,4 @@ export const changeAuthStatus = createAction('auth/changeAuthStatus', (newAuthSt
 export const changeActiveLocation = createAction('city/changeActiveLocation', (newActiveLocation: string) => ({ payload: newActiveLocation }));
 export const changeActiveSortingOption = createAction('offer/changeActiveSortingOption', (newOption: string) => ({ payload: newOption }));
 export const loadOffers = createAction('data/loadOffers', (offers: Offer[]) => ({ payload: offers }));
+export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
