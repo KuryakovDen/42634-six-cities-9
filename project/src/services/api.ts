@@ -6,7 +6,7 @@ export const createAPI = (): AxiosInstance => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
-  })
+  });
 
   api.interceptors.request.use(
     (config: AxiosRequestConfig) => {
@@ -16,8 +16,8 @@ export const createAPI = (): AxiosInstance => {
         config.headers['x-token'] = token;
       }
 
-      return config
-    }
+      return config;
+    },
   );
 
   return api;

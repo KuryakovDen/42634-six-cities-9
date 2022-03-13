@@ -16,7 +16,7 @@ const initialState: initialStateType = {
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
   offerList: [],
-  error: ''
+  error: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -34,7 +34,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.authStatus = action.payload;
     })
     .addCase(setError, (state, action) => {
-      state.error = action.payload
+      state.error = action.payload;
     });
 });
 
