@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {logoutAction} from '../../store/api-actions';
+import {store} from '../../store';
 
 function UserInfo(): JSX.Element {
   return (
@@ -13,7 +15,7 @@ function UserInfo(): JSX.Element {
             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
           </Link>
         </li>
-        <li className="header__nav-item">
+        <li className="header__nav-item" onClick={() => store.dispatch(logoutAction())}>
           <a className="header__nav-link" href="#">
             <span className="header__signout">Sign out</span>
           </a>
