@@ -29,7 +29,7 @@ function App({ reviews }: AppProps): JSX.Element {
         <Route path={AppRoute.Main} element={<MainScreen />} />
         <Route path={AppRoute.Login} element={authStatus === AuthStatus.Auth ? <Navigate to={'/'} /> : <LoginScreen />} />
         <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authStatus}><FavoritesScreen offers={[]} /></PrivateRoute>} />
-        <Route path={AppRoute.OfferId} element={<OfferScreen authStatus={authStatus} reviews={reviews} />} />
+        <Route path={AppRoute.OfferId} element={<OfferScreen reviews={reviews} />} />
         <Route path={'*'} element={<NotFoundScreen />} />
       </Routes>
     </BrowserRouter>
