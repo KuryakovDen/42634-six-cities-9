@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import {store} from '../../store';
 import {AuthData, loginAction} from '../../store/api-actions';
+import {setUserLogin} from '../../store/action';
 
 function LoginScreen(): JSX.Element {
   const [authData, setAuthData] = useState<AuthData>({
@@ -14,6 +15,7 @@ function LoginScreen(): JSX.Element {
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    store.dispatch(setUserLogin(authData.login));
     store.dispatch(loginAction(authData));
   };
 

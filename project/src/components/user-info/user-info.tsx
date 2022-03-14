@@ -7,6 +7,7 @@ import {useAppSelector} from '../../hooks';
 
 function UserInfo(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authStatus);
+  const userLogin = useAppSelector((state) => state.userLogin);
 
   return (
     <nav className="header__nav">
@@ -17,7 +18,7 @@ function UserInfo(): JSX.Element {
               <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
                 <div className="header__avatar-wrapper user__avatar-wrapper">
                 </div>
-                <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                <span className="header__user-name user__name">{userLogin}</span>
               </Link>
             </li>
             <li className="header__nav-item">
