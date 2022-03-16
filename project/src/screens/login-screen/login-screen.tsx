@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import {store} from '../../store';
 import {AuthData, loginAction} from '../../store/api-actions';
 import {setUserLogin} from '../../store/action';
+import {useAppDispatch} from '../../hooks';
 
 function LoginScreen(): JSX.Element {
   const [authData, setAuthData] = useState<AuthData>({
@@ -12,11 +12,12 @@ function LoginScreen(): JSX.Element {
   });
 
   const validPasswordPattern: boolean = (/([0-9].*[a-z])|([a-z].*[0-9])/).test(authData.password);
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    store.dispatch(setUserLogin(authData.login));
-    store.dispatch(loginAction(authData));
+    dispatch(setUserLogin(authData.login));
+    dispatch(loginAction(authData));
   };
 
   return (
