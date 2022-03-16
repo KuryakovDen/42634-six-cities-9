@@ -20,7 +20,7 @@ function LoginScreen(): JSX.Element {
     return <Spinner />;
   } else {
     if (authStatus === AuthStatus.Auth) {
-      return <Navigate to={'/'} />;
+      return <Navigate to={AppRoute.Main} />;
     }
   }
 
