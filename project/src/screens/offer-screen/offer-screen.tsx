@@ -11,14 +11,15 @@ import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks';
 
 type OfferScreenProps = {
-  authStatus: AuthStatus;
   reviews: Review[];
 }
 
-function OfferScreen({ authStatus, reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
   const { id } = useParams();
 
+  const authStatus = useAppSelector((state) => state.authStatus);
   const offerList = useAppSelector((state) => state.offerList);
+
   const currentOffer: Offer | undefined = offerList.find((offer) => offer.id === Number(id));
   const neighborOffers = offerList
     .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)

@@ -1,8 +1,37 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import React, {ChangeEvent, useState} from 'react';
+import {Link, Navigate} from 'react-router-dom';
+import {AppRoute, AuthStatus} from '../../const';
+import {AuthData, loginAction} from '../../store/api-actions';
+import {setUserLogin} from '../../store/action';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 function LoginScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatusLoading = useAppSelector((state) => state.isAuthStatusLoading);
+  const authStatus = useAppSelector((state) => state.authStatus);
+
+  const [authData, setAuthData] = useState<AuthData>({
+    login: '',
+    password: '',
+  });
+
+  if (!authStatusLoading) {
+    return <Spinner />;
+  } else {
+    if (authStatus === AuthStatus.Auth) {
+      return <Navigate to={AppRoute.Main} />;
+    }
+  }
+
+  const validPasswordPattern: boolean = (/([0-9].*[a-z])|([a-z].*[0-9])/).test(authData.password);
+
+  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    dispatch(setUserLogin(authData.login));
+    dispatch(loginAction(authData));
+  };
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -24,13 +53,24 @@ function LoginScreen(): JSX.Element {
             <form className="login__form form" action="#" method="post">
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
+                <input className="login__input form__input" type="email" name="email" placeholder="Email" required
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setAuthData({ ...authData, login: e.target.value })}
+                />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required />
+                <input className="login__input form__input" type="password" name="password" placeholder="Password" required
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setAuthData({ ...authData, password: e.target.value })}
+                />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                onClick={(e) => onSubmit(e)}
+                disabled={authData.password.trim() === '' || !validPasswordPattern}
+              >
+                Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

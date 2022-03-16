@@ -1,20 +1,33 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {changeActiveLocation, changeActiveSortingOption, loadOffers} from './action';
+import {
+  changeActiveLocation,
+  changeActiveSortingOption,
+  changeAuthStatus,
+  loadOffers, setAuthStatusLoading,
+  setError,
+  setUserLogin
+} from './action';
 import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
 
 type initialStateType = {
+  isAuthStatusLoading: boolean;
   authStatus: AuthStatus;
   activeLocation: string;
   activeSortingOption: string;
   offerList: Offer[];
+  error: string;
+  userLogin: string;
 };
 
 const initialState: initialStateType = {
+  isAuthStatusLoading: false,
   authStatus: AuthStatus.Unknown,
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
   offerList: [],
+  error: '',
+  userLogin: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -27,6 +40,18 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offerList = action.payload;
+    })
+    .addCase(changeAuthStatus, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setUserLogin, (state, action) => {
+      state.userLogin = action.payload;
+    })
+    .addCase(setAuthStatusLoading, (state, action) => {
+      state.isAuthStatusLoading = action.payload;
     });
 });
 
