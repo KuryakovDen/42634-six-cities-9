@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
-import {changeAuthStatus, loadOffers, setError} from './action';
+import {changeAuthStatus, loadOffers, setAuthStatusLoading, setError} from './action';
 import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
@@ -29,9 +29,11 @@ export const checkAuthAction = createAsyncThunk('user/checkAuth', async () => {
   try {
     await api.get(AppRoute.Login);
     store.dispatch(changeAuthStatus(AuthStatus.Auth));
+    store.dispatch(setAuthStatusLoading(true));
   } catch (error) {
     errorHandle(error);
     store.dispatch(changeAuthStatus(AuthStatus.NoAuth));
+    store.dispatch(setAuthStatusLoading(true));
   }
 });
 

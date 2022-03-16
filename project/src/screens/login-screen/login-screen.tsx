@@ -1,18 +1,30 @@
 import React, {ChangeEvent, useState} from 'react';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {Link, Navigate} from 'react-router-dom';
+import {AppRoute, AuthStatus} from '../../const';
 import {AuthData, loginAction} from '../../store/api-actions';
 import {setUserLogin} from '../../store/action';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import Spinner from '../../components/spinner/spinner';
 
 function LoginScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const authStatusLoading = useAppSelector((state) => state.isAuthStatusLoading);
+  const authStatus = useAppSelector((state) => state.authStatus);
+
   const [authData, setAuthData] = useState<AuthData>({
     login: '',
     password: '',
   });
 
+  if (!authStatusLoading) {
+    return <Spinner />;
+  } else {
+    if (authStatus === AuthStatus.Auth) {
+      return <Navigate to={'/'} />;
+    }
+  }
+
   const validPasswordPattern: boolean = (/([0-9].*[a-z])|([a-z].*[0-9])/).test(authData.password);
-  const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

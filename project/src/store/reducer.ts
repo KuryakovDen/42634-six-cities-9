@@ -3,7 +3,7 @@ import {
   changeActiveLocation,
   changeActiveSortingOption,
   changeAuthStatus,
-  loadOffers,
+  loadOffers, setAuthStatusLoading,
   setError,
   setUserLogin
 } from './action';
@@ -11,6 +11,7 @@ import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
 
 type initialStateType = {
+  isAuthStatusLoading: boolean;
   authStatus: AuthStatus;
   activeLocation: string;
   activeSortingOption: string;
@@ -20,6 +21,7 @@ type initialStateType = {
 };
 
 const initialState: initialStateType = {
+  isAuthStatusLoading: false,
   authStatus: AuthStatus.Unknown,
   activeLocation: 'Paris',
   activeSortingOption: 'Popular',
@@ -47,6 +49,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserLogin, (state, action) => {
       state.userLogin = action.payload;
+    })
+    .addCase(setAuthStatusLoading, (state, action) => {
+      state.isAuthStatusLoading = action.payload;
     });
 });
 

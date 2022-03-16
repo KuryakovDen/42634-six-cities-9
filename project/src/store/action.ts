@@ -8,3 +8,4 @@ export const changeActiveSortingOption = createAction('offer/changeActiveSorting
 export const loadOffers = createAction('data/loadOffers', (offers: Offer[]) => ({ payload: offers }));
 export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
 export const setUserLogin = createAction('auth/setUserLogin', (userLogin: string) => ({ payload: userLogin }));
+export const setAuthStatusLoading = createAction('auth/setAuthStatusLoading', (newStatus: boolean) => ({ payload: newStatus }));
