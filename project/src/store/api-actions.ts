@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
-import {changeAuthStatus, loadOffers, setAuthStatusLoading, setError} from './action';
+import {changeAuthStatus, loadOffer, loadOffers, setAuthStatusLoading, setError} from './action';
 import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
@@ -20,6 +20,15 @@ export const loadOffersAction = createAsyncThunk('data/loadOffers', async () => 
   try {
     const { data } = await api.get(AppRoute.Hotels);
     store.dispatch(loadOffers(data));
+  } catch (error) {
+    errorHandle(error);
+  }
+});
+
+export const loadOfferAction = createAsyncThunk('data/loadOffer', async (offerId: number | undefined) => {
+  try {
+    const { data } = await api.get(`${AppRoute.Hotels}/${offerId}`);
+    store.dispatch(loadOffer(data));
   } catch (error) {
     errorHandle(error);
   }
