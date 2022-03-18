@@ -17,6 +17,7 @@ type initialStateType = {
   activeSortingOption: string;
   offerList: Offer[];
   currentOffer: Offer | null;
+  neighborOffers: Offer[] | [];
   error: string;
   userLogin: string;
 };
@@ -28,6 +29,7 @@ const initialState: initialStateType = {
   activeSortingOption: 'Popular',
   offerList: [],
   currentOffer: null,
+  neighborOffers: [],
   error: '',
   userLogin: '',
 };

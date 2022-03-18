@@ -4,6 +4,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus, MAX_NEIGHBOR_OFFERS_COUNT} from '../../const';
+import {Offer} from '../../types/offer';
 import {Review} from '../../types/review';
 import {Navigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
@@ -20,8 +21,10 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
 
   const authStatus = useAppSelector((state) => state.authStatus);
   const offerList = useAppSelector((state) => state.offerList);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
 
+  dispatch(loadOfferAction(+id!));
+
+  const currentOffer: Offer | undefined = offerList.find((offer) => offer.id === Number(id));
   const neighborOffers = offerList
     .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
     .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
@@ -29,11 +32,9 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
     .concat(currentOffer || [])
     .map((offer) => offer.location);
 
-  if (!currentOffer) {
+  if (currentOffer === undefined) {
     return <Navigate to={'*'} />;
   }
-
-  dispatch(loadOfferAction(+id!));
 
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;
 
