@@ -24,7 +24,8 @@ export enum AppRoute {
   Hotels = '/hotels',
   Favorites = '/favorites',
   OfferId = '/offer/:id',
-  Offer = '/offer'
+  Offer = '/offer',
+  Comments = '/comments',
 }
 
 export enum AuthStatus {

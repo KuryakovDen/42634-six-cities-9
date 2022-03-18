@@ -4,11 +4,11 @@ import {MAX_REVIEW_COUNT, RATING_COEFFICIENT} from '../../const';
 import {getFormattedDate} from '../../util';
 
 type ReviewsListProps = {
-  reviews: Review[];
+  reviews: Review[] | [];
 };
 
 function ReviewsList({ reviews }: ReviewsListProps): JSX.Element {
-  const sortedReviews = reviews
+  const sortedReviews = reviews.slice()
     .sort((prevReview, nextReview) => {
       const prevDate = new Date(prevReview.date);
       const nextDate = new Date(nextReview.date);

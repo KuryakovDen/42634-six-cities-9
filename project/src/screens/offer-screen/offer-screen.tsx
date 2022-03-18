@@ -4,27 +4,24 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus} from '../../const';
-import {Review} from '../../types/review';
 import {Navigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
+import {loadcommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
 
-type OfferScreenProps = {
-  reviews: Review[];
-}
-
-function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state) => state.authStatus);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const neighborOffers = useAppSelector((state) => state.neighborOffers);
+  const commentList = useAppSelector((state) => state.commentList);
 
   useEffect(() => {
     dispatch(loadOfferAction(+id!));
     dispatch(loadNeighborOffersAction(+id!));
+    dispatch(loadcommentListAction(+id!));
   }, []);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
@@ -109,7 +106,7 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={commentList} />
                 { authStatus === AuthStatus.Auth && <ReviewForm /> }
               </section>
             </div>

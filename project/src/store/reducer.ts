@@ -2,13 +2,14 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   changeActiveLocation,
   changeActiveSortingOption,
-  changeAuthStatus, loadNeighborOffers, loadOffer,
+  changeAuthStatus, loadcommentList, loadNeighborOffers, loadOffer,
   loadOffers, setAuthStatusLoading,
   setError,
   setUserLogin
 } from './action';
 import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
+import {Review} from '../types/review';
 
 type initialStateType = {
   isAuthStatusLoading: boolean;
@@ -18,6 +19,7 @@ type initialStateType = {
   offerList: Offer[];
   currentOffer: Offer | null;
   neighborOffers: Offer[] | [];
+  commentList: Review[] | [];
   error: string;
   userLogin: string;
 };
@@ -30,6 +32,7 @@ const initialState: initialStateType = {
   offerList: [],
   currentOffer: null,
   neighborOffers: [],
+  commentList: [],
   error: '',
   userLogin: '',
 };
@@ -50,6 +53,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadNeighborOffers, (state, action) => {
       state.neighborOffers = action.payload;
+    })
+    .addCase(loadcommentList, (state, action) => {
+      state.commentList = action.payload;
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authStatus = action.payload;
