@@ -7,7 +7,8 @@ import {AuthStatus} from '../../const';
 import {Navigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadcommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
+import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -16,18 +17,24 @@ function OfferScreen(): JSX.Element {
   const authStatus = useAppSelector((state) => state.authStatus);
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const neighborOffers = useAppSelector((state) => state.neighborOffers);
+  const neighborOffersLoaded = useAppSelector((state) => state.isNeighborOffersLoaded);
   const commentList = useAppSelector((state) => state.commentList);
+  const commentListLoaded = useAppSelector((state) => state.isCommentListLoaded);
 
   useEffect(() => {
     dispatch(loadOfferAction(+id!));
     dispatch(loadNeighborOffersAction(+id!));
-    dispatch(loadcommentListAction(+id!));
+    dispatch(loadCommentListAction(+id!));
   }, []);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
 
   if (!currentOffer) {
     return <Navigate to={'*'} />;
+  }
+
+  if (!neighborOffersLoaded || !commentListLoaded) {
+    return <Spinner />;
   }
 
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;

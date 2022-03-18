@@ -9,7 +9,9 @@ export const changeActiveSortingOption = createAction('offer/changeActiveSorting
 export const loadOffers = createAction('data/loadOffers', (offers: Offer[]) => ({ payload: offers }));
 export const loadOffer = createAction('data/loadOffer', (currentOffer: Offer) => ({ payload: currentOffer }));
 export const loadNeighborOffers = createAction('data/loadNeighborOffers', (neighborOffers: Offer[] | []) => ({ payload: neighborOffers }));
-export const loadcommentList = createAction('data/loadcommentList', (commentList: Review[] | []) => ({ payload: commentList }));
+export const checkNeighborOffersLoaded = createAction('data/checkNeighborOffersLoading', (loadingStatus: boolean) => ({ payload: loadingStatus }));
+export const loadCommentList = createAction('data/loadCommentList', (commentList: Review[] | []) => ({ payload: commentList }));
+export const checkCommentListLoaded = createAction('data/checkCommentListLoading', (loadingStatus: boolean) => ({ payload: loadingStatus }));
 export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
 export const setUserLogin = createAction('auth/setUserLogin', (userLogin: string) => ({ payload: userLogin }));
 export const setAuthStatusLoading = createAction('auth/setAuthStatusLoading', (newStatus: boolean) => ({ payload: newStatus }));

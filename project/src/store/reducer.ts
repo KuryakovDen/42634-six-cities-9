@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   changeActiveLocation,
   changeActiveSortingOption,
-  changeAuthStatus, loadcommentList, loadNeighborOffers, loadOffer,
+  changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded, loadCommentList, loadNeighborOffers, loadOffer,
   loadOffers, setAuthStatusLoading,
   setError,
   setUserLogin
@@ -19,7 +19,9 @@ type initialStateType = {
   offerList: Offer[];
   currentOffer: Offer | null;
   neighborOffers: Offer[] | [];
+  isNeighborOffersLoaded: boolean;
   commentList: Review[] | [];
+  isCommentListLoaded: boolean;
   error: string;
   userLogin: string;
 };
@@ -32,7 +34,9 @@ const initialState: initialStateType = {
   offerList: [],
   currentOffer: null,
   neighborOffers: [],
+  isNeighborOffersLoaded: false,
   commentList: [],
+  isCommentListLoaded: false,
   error: '',
   userLogin: '',
 };
@@ -54,8 +58,14 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadNeighborOffers, (state, action) => {
       state.neighborOffers = action.payload;
     })
-    .addCase(loadcommentList, (state, action) => {
+    .addCase(checkNeighborOffersLoaded, (state, action) => {
+      state.isNeighborOffersLoaded = action.payload;
+    })
+    .addCase(loadCommentList, (state, action) => {
       state.commentList = action.payload;
+    })
+    .addCase(checkCommentListLoaded, (state, action) => {
+      state.isCommentListLoaded = action.payload;
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authStatus = action.payload;

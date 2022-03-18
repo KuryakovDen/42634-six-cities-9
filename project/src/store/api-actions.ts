@@ -1,8 +1,8 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
 import {
-  changeAuthStatus,
-  loadcommentList,
+  changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded,
+  loadCommentList,
   loadNeighborOffers,
   loadOffer,
   loadOffers,
@@ -46,15 +46,17 @@ export const loadNeighborOffersAction = createAsyncThunk('data/loadNeighborOffer
   try {
     const { data } = await api.get(`${AppRoute.Hotels}/${offerId}/nearby`);
     store.dispatch(loadNeighborOffers(data));
+    store.dispatch(checkNeighborOffersLoaded(true));
   } catch (error) {
     errorHandle(error);
   }
 });
 
-export const loadcommentListAction = createAsyncThunk('data/commentList', async (offerId: number | undefined) => {
+export const loadCommentListAction = createAsyncThunk('data/commentList', async (offerId: number | undefined) => {
   try {
     const { data } = await api.get(`${AppRoute.Comments}/${offerId}`);
-    store.dispatch(loadcommentList(data));
+    store.dispatch(loadCommentList(data));
+    store.dispatch(checkCommentListLoaded(true));
   } catch (error) {
     errorHandle(error);
   }
