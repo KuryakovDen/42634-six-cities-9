@@ -26,6 +26,7 @@ export enum AppRoute {
   OfferId = '/offer/:id',
   Offer = '/offer',
   Comments = '/comments',
+  NotFound = '*'
 }
 
 export enum AuthStatus {

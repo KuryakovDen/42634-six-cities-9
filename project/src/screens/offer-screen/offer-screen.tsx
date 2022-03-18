@@ -3,7 +3,7 @@ import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
-import {AuthStatus} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -24,18 +24,18 @@ function OfferScreen(): JSX.Element {
 
   useEffect(() => {
     if (!id) {
-      navigate('*');
+      navigate(AppRoute.NotFound);
     } else {
       dispatch(loadOfferAction(+id));
       dispatch(loadNeighborOffersAction(+id));
-      dispatch(loadCommentListAction(+id!));
+      dispatch(loadCommentListAction(+id));
     }
   }, []);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
 
   if (!currentOffer) {
-    return <Navigate to={'*'} />;
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   if (!neighborOffersLoaded || !commentListLoaded) {
