@@ -4,7 +4,7 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
 import {AuthStatus} from '../../const';
-import {Navigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
@@ -12,6 +12,7 @@ import Spinner from '../../components/spinner/spinner';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state) => state.authStatus);
@@ -22,9 +23,13 @@ function OfferScreen(): JSX.Element {
   const commentListLoaded = useAppSelector((state) => state.isCommentListLoaded);
 
   useEffect(() => {
-    dispatch(loadOfferAction(+id!));
-    dispatch(loadNeighborOffersAction(+id!));
-    dispatch(loadCommentListAction(+id!));
+    if (!id) {
+      navigate('*');
+    } else {
+      dispatch(loadOfferAction(+id));
+      dispatch(loadNeighborOffersAction(+id));
+      dispatch(loadCommentListAction(+id!));
+    }
   }, []);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
