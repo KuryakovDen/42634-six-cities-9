@@ -3,12 +3,12 @@ import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
-import {AuthStatus, MAX_NEIGHBOR_OFFERS_COUNT} from '../../const';
+import {AuthStatus} from '../../const';
 import {Review} from '../../types/review';
 import {Navigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadOfferAction} from '../../store/api-actions';
+import {loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
 
 type OfferScreenProps = {
   reviews: Review[];
@@ -19,19 +19,15 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state) => state.authStatus);
-  const offerList = useAppSelector((state) => state.offerList);
   const currentOffer = useAppSelector((state) => state.currentOffer);
+  const neighborOffers = useAppSelector((state) => state.neighborOffers);
 
   useEffect(() => {
     dispatch(loadOfferAction(+id!));
+    dispatch(loadNeighborOffersAction(+id!));
   }, []);
 
-  const neighborOffers = offerList
-    .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
-    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
-  const points = neighborOffers
-    .concat(currentOffer || [])
-    .map((offer) => offer.location);
+  const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
 
   if (!currentOffer) {
     return <Navigate to={'*'} />;

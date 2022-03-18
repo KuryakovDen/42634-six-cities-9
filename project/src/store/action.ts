@@ -7,6 +7,7 @@ export const changeActiveLocation = createAction('city/changeActiveLocation', (n
 export const changeActiveSortingOption = createAction('offer/changeActiveSortingOption', (newOption: string) => ({ payload: newOption }));
 export const loadOffers = createAction('data/loadOffers', (offers: Offer[]) => ({ payload: offers }));
 export const loadOffer = createAction('data/loadOffer', (currentOffer: Offer) => ({ payload: currentOffer }));
+export const loadNeighborOffers = createAction('data/loadNeighborOffers', (neighborOffers: Offer[] | []) => ({ payload: neighborOffers }));
 export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
 export const setUserLogin = createAction('auth/setUserLogin', (userLogin: string) => ({ payload: userLogin }));
 export const setAuthStatusLoading = createAction('auth/setAuthStatusLoading', (newStatus: boolean) => ({ payload: newStatus }));

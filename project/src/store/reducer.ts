@@ -2,7 +2,7 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   changeActiveLocation,
   changeActiveSortingOption,
-  changeAuthStatus, loadOffer,
+  changeAuthStatus, loadNeighborOffers, loadOffer,
   loadOffers, setAuthStatusLoading,
   setError,
   setUserLogin
@@ -47,6 +47,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.currentOffer = action.payload;
+    })
+    .addCase(loadNeighborOffers, (state, action) => {
+      state.neighborOffers = action.payload;
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authStatus = action.payload;
