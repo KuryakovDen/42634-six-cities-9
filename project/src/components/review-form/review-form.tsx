@@ -21,6 +21,10 @@ function ReviewForm(): JSX.Element {
   const onSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     id && dispatch(sendCommentAction(+id, formData));
+    setFormData({
+      rating: null,
+      comment: '',
+    });
   };
 
   const ratingStars = new Array(MAX_REVIEW_STARS_COUNT).fill(null).map((el, index) => el = index + 1).reverse();
@@ -55,6 +59,7 @@ function ReviewForm(): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={ValidReviewTextLength.Min}
         maxLength={ValidReviewTextLength.Max}
+        value={formData.comment}
         onChange={setField}
       />
       <div className="reviews__button-wrapper">
