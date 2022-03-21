@@ -4,7 +4,7 @@ import {
   changeActiveSortingOption,
   changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded, loadCommentList, loadNeighborOffers, loadOffer,
   loadOffers, setAuthStatusLoading,
-  setError, setIsCurrentOfferLoading,
+  setError, setIsCurrentOfferLoading, setReviewFormBlocked,
   setUserLogin
 } from './action';
 import {Offer} from '../types/offer';
@@ -24,6 +24,7 @@ type initialStateType = {
   isNeighborOffersLoaded: boolean;
   commentList: Review[] | [];
   isCommentListLoaded: boolean;
+  isReviewFormBlocked: boolean;
   newComment: ReviewForm | null;
   error: string;
   userLogin: string;
@@ -41,6 +42,7 @@ const initialState: initialStateType = {
   isNeighborOffersLoaded: false,
   commentList: [],
   isCommentListLoaded: false,
+  isReviewFormBlocked: false,
   newComment: null,
   error: '',
   userLogin: '',
@@ -74,6 +76,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkCommentListLoaded, (state, action) => {
       state.isCommentListLoaded = action.payload;
+    })
+    .addCase(setReviewFormBlocked, (state, action) => {
+      state.isReviewFormBlocked = action.payload;
     })
     .addCase(changeAuthStatus, (state, action) => {
       state.authStatus = action.payload;

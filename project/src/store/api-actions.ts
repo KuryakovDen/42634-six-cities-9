@@ -7,7 +7,7 @@ import {
   loadOffer,
   loadOffers, sendComment,
   setAuthStatusLoading,
-  setError, setIsCurrentOfferLoading
+  setError, setIsCurrentOfferLoading, setReviewFormBlocked
 } from './action';
 import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
@@ -71,7 +71,9 @@ export const sendCommentAction = (offerId: number | undefined, formData: ReviewF
   try {
     const { data } = await api.post<ReviewForm | null>(`${AppRoute.Comments}/${offerId}`, formData);
     store.dispatch(sendComment(data));
+    store.dispatch(setReviewFormBlocked(false));
   } catch (error) {
+    store.dispatch(setReviewFormBlocked(false));
     errorHandle(error);
   }
 })();

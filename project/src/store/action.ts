@@ -15,6 +15,7 @@ export const checkNeighborOffersLoaded = createAction('data/checkNeighborOffersL
 export const loadCommentList = createAction('data/loadCommentList', (commentList: Review[] | []) => ({ payload: commentList }));
 export const checkCommentListLoaded = createAction('data/checkCommentListLoading', (loadingStatus: boolean) => ({ payload: loadingStatus }));
 export const sendComment = createAction('data/sendComment', (newComment: ReviewForm | null) => ({ payload: newComment }));
+export const setReviewFormBlocked = createAction('data/setReviewFormBlocked', (isFormBlocked: boolean) => ({ payload: isFormBlocked }));
 export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
 export const setUserLogin = createAction('auth/setUserLogin', (userLogin: string) => ({ payload: userLogin }));
 export const setAuthStatusLoading = createAction('auth/setAuthStatusLoading', (newStatus: boolean) => ({ payload: newStatus }));
