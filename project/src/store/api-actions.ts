@@ -5,13 +5,14 @@ import {
   loadCommentList,
   loadNeighborOffers,
   loadOffer,
-  loadOffers,
+  loadOffers, sendComment,
   setAuthStatusLoading,
-  setError
+  setError, setIsCurrentOfferLoading
 } from './action';
 import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
+import ReviewForm from '../components/review-form/review-form';
 
 export type AuthData = {
   login: string;
@@ -37,7 +38,9 @@ export const loadOfferAction = createAsyncThunk('data/loadOffer', async (offerId
   try {
     const { data } = await api.get(`${AppRoute.Hotels}/${offerId}`);
     store.dispatch(loadOffer(data));
+    store.dispatch(setIsCurrentOfferLoading(false));
   } catch (error) {
+    store.dispatch(setIsCurrentOfferLoading(false));
     errorHandle(error);
   }
 });
@@ -48,6 +51,7 @@ export const loadNeighborOffersAction = createAsyncThunk('data/loadNeighborOffer
     store.dispatch(loadNeighborOffers(data));
     store.dispatch(checkNeighborOffersLoaded(true));
   } catch (error) {
+    store.dispatch(checkNeighborOffersLoaded(true));
     errorHandle(error);
   }
 });
@@ -58,9 +62,19 @@ export const loadCommentListAction = createAsyncThunk('data/commentList', async 
     store.dispatch(loadCommentList(data));
     store.dispatch(checkCommentListLoaded(true));
   } catch (error) {
+    store.dispatch(checkCommentListLoaded(true));
     errorHandle(error);
   }
 });
+
+export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('data/sendCommentAction', async () => {
+  try {
+    const { data } = await api.post<ReviewForm | null>(`${AppRoute.Comments}/${offerId}`, formData);
+    store.dispatch(sendComment(data));
+  } catch (error) {
+    errorHandle(error);
+  }
+})();
 
 export const checkAuthAction = createAsyncThunk('user/checkAuth', async () => {
   try {

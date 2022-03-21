@@ -1,16 +1,27 @@
-import React, {ChangeEvent, Fragment, useState} from 'react';
+import React, {ChangeEvent, FormEvent, Fragment, useState} from 'react';
 import {MAX_REVIEW_STARS_COUNT, ValidReviewTextLength} from '../../const';
+import {useAppDispatch} from '../../hooks';
+import {sendCommentAction} from '../../store/api-actions';
+import {useParams} from 'react-router-dom';
 
 type ReviewForm = {
   rating: null | number;
-  review: string;
+  comment: string;
 };
 
 function ReviewForm(): JSX.Element {
   const [formData, setFormData] = useState<ReviewForm>({
     rating: null,
-    review: '',
+    comment: '',
   });
+
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+
+  const onSubmit = (e: FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    id && dispatch(sendCommentAction(+id, formData));
+  };
 
   const ratingStars = new Array(MAX_REVIEW_STARS_COUNT).fill(null).map((el, index) => el = index + 1).reverse();
   const setField = ({target}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setFormData((prevState) => ({...prevState, [target.name]: target.value}));
@@ -39,8 +50,8 @@ function ReviewForm(): JSX.Element {
       </div>
       <textarea
         className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
+        id="comment"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={ValidReviewTextLength.Min}
         maxLength={ValidReviewTextLength.Max}
@@ -54,7 +65,8 @@ function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={formData.review.length < ValidReviewTextLength.Min || formData.rating === null}
+          disabled={formData.comment.length < ValidReviewTextLength.Min || formData.rating === null}
+          onClick={(e) => onSubmit(e)}
         >
           Submit
         </button>

@@ -4,12 +4,13 @@ import {
   changeActiveSortingOption,
   changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded, loadCommentList, loadNeighborOffers, loadOffer,
   loadOffers, setAuthStatusLoading,
-  setError,
+  setError, setIsCurrentOfferLoading,
   setUserLogin
 } from './action';
 import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
 import {Review} from '../types/review';
+import ReviewForm from '../components/review-form/review-form';
 
 type initialStateType = {
   isAuthStatusLoading: boolean;
@@ -18,10 +19,12 @@ type initialStateType = {
   activeSortingOption: string;
   offerList: Offer[];
   currentOffer: Offer | null;
+  isCurrentOfferLoading: boolean;
   neighborOffers: Offer[] | [];
   isNeighborOffersLoaded: boolean;
   commentList: Review[] | [];
   isCommentListLoaded: boolean;
+  newComment: ReviewForm | null;
   error: string;
   userLogin: string;
 };
@@ -33,10 +36,12 @@ const initialState: initialStateType = {
   activeSortingOption: 'Popular',
   offerList: [],
   currentOffer: null,
+  isCurrentOfferLoading: true,
   neighborOffers: [],
   isNeighborOffersLoaded: false,
   commentList: [],
   isCommentListLoaded: false,
+  newComment: null,
   error: '',
   userLogin: '',
 };
@@ -54,6 +59,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.currentOffer = action.payload;
+    })
+    .addCase(setIsCurrentOfferLoading, (state, action) => {
+      state.isCurrentOfferLoading = action.payload;
     })
     .addCase(loadNeighborOffers, (state, action) => {
       state.neighborOffers = action.payload;

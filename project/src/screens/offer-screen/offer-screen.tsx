@@ -9,6 +9,7 @@ import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
+import {setIsCurrentOfferLoading} from '../../store/action';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -17,6 +18,7 @@ function OfferScreen(): JSX.Element {
 
   const authStatus = useAppSelector((state) => state.authStatus);
   const currentOffer = useAppSelector((state) => state.currentOffer);
+  const currentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
   const neighborOffers = useAppSelector((state) => state.neighborOffers);
   const neighborOffersLoaded = useAppSelector((state) => state.isNeighborOffersLoaded);
   const commentList = useAppSelector((state) => state.commentList);
@@ -30,16 +32,19 @@ function OfferScreen(): JSX.Element {
       dispatch(loadNeighborOffersAction(+id));
       dispatch(loadCommentListAction(+id));
     }
+
+    return () => { dispatch(setIsCurrentOfferLoading(true)) };
   }, []);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
 
-  if (!currentOffer) {
-    return <Navigate to={AppRoute.NotFound} />;
+  if (currentOfferLoading || !neighborOffersLoaded || !commentListLoaded) {
+    return <Spinner />;
   }
 
-  if (!neighborOffersLoaded || !commentListLoaded) {
-    return <Spinner />;
+  if (!currentOffer) {
+    console.log('abc', currentOffer);
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;
@@ -130,7 +135,7 @@ function OfferScreen(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={neighborOffers} />
+            { neighborOffersLoaded ? <OffersList offers={neighborOffers} /> : <Spinner /> }
           </section>
         </div>
       </main>
