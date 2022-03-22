@@ -33,8 +33,8 @@ function OfferScreen(): JSX.Element {
       dispatch(loadCommentListAction(+id));
     }
 
-    return () => { dispatch(setIsCurrentOfferLoading(true)) };
-  }, []);
+    return () => { dispatch(setIsCurrentOfferLoading(true)); };
+  }, [dispatch, id, navigate]);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
 
@@ -43,7 +43,6 @@ function OfferScreen(): JSX.Element {
   }
 
   if (!currentOffer) {
-    console.log('abc', currentOffer);
     return <Navigate to={AppRoute.NotFound} />;
   }
 
