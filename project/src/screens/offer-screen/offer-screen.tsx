@@ -1,35 +1,53 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Header from '../../components/header/header';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import ReviewForm from '../../components/review-form/review-form';
 import OffersList from '../../components/offers-list/offers-list';
-import {AuthStatus, MAX_NEIGHBOR_OFFERS_COUNT} from '../../const';
-import {Offer} from '../../types/offer';
-import {Review} from '../../types/review';
-import {Navigate, useParams} from 'react-router-dom';
+import {AppRoute, AuthStatus} from '../../const';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import Map from '../../components/map/map';
-import {useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
+import Spinner from '../../components/spinner/spinner';
+import {sendNewCommentList, setIsCurrentOfferLoading} from '../../store/action';
 
-type OfferScreenProps = {
-  reviews: Review[];
-}
-
-function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const authStatus = useAppSelector((state) => state.authStatus);
-  const offerList = useAppSelector((state) => state.offerList);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const currentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
+  const neighborOffers = useAppSelector((state) => state.neighborOffers);
+  const neighborOffersLoaded = useAppSelector((state) => state.isNeighborOffersLoaded);
+  const commentList = useAppSelector((state) => state.commentList);
+  const newCommentList = useAppSelector((state) => state.newCommentList);
+  const commentListLoaded = useAppSelector((state) => state.isCommentListLoaded);
 
-  const currentOffer: Offer | undefined = offerList.find((offer) => offer.id === Number(id));
-  const neighborOffers = offerList
-    .filter((offer) => currentOffer && offer.city.name === currentOffer.city.name && offer.id !== currentOffer.id)
-    .slice(0, MAX_NEIGHBOR_OFFERS_COUNT);
-  const points = neighborOffers
-    .concat(currentOffer || [])
-    .map((offer) => offer.location);
+  useEffect(() => {
+    if (!id) {
+      navigate(AppRoute.NotFound);
+    } else {
+      dispatch(loadOfferAction(+id));
+      dispatch(loadNeighborOffersAction(+id));
+      dispatch(loadCommentListAction(+id));
+    }
 
-  if (currentOffer === undefined) {
-    return <Navigate to={'*'} />;
+    return () => {
+      dispatch(setIsCurrentOfferLoading(true));
+      dispatch(sendNewCommentList([]));
+    };
+  }, [dispatch, id, navigate]);
+
+  const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
+
+  if (currentOfferLoading || !neighborOffersLoaded || !commentListLoaded) {
+    return <Spinner />;
+  }
+
+  if (!currentOffer) {
+    return <Navigate to={AppRoute.NotFound} />;
   }
 
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;
@@ -108,7 +126,7 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={newCommentList.length > 0 ? newCommentList : commentList} />
                 { authStatus === AuthStatus.Auth && <ReviewForm /> }
               </section>
             </div>
@@ -120,7 +138,7 @@ function OfferScreen({ reviews }: OfferScreenProps): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <OffersList offers={neighborOffers} />
+            { neighborOffersLoaded ? <OffersList offers={neighborOffers} /> : <Spinner /> }
           </section>
         </div>
       </main>
