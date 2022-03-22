@@ -71,7 +71,6 @@ export const loadCommentListAction = createAsyncThunk('data/commentList', async 
 export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('data/sendCommentAction', async () => {
   try {
     const { data } = await api.post<Review[] | []>(`${AppRoute.Comments}/${offerId}`, formData);
-    console.log(data)
     store.dispatch(sendNewCommentList(data));
     store.dispatch(setReviewFormBlocked(false));
   } catch (error) {

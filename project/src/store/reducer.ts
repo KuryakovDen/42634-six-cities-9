@@ -10,7 +10,6 @@ import {
 import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
 import {Review} from '../types/review';
-import ReviewForm from '../components/review-form/review-form';
 
 type initialStateType = {
   isAuthStatusLoading: boolean;
