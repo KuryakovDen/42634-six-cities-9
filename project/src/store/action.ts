@@ -2,7 +2,6 @@ import {createAction} from '@reduxjs/toolkit';
 import {Offer} from '../types/offer';
 import {AuthStatus} from '../const';
 import {Review} from '../types/review';
-import ReviewForm from '../components/review-form/review-form';
 
 export const changeAuthStatus = createAction('auth/changeAuthStatus', (newAuthStatus: AuthStatus) => ({ payload: newAuthStatus }));
 export const changeActiveLocation = createAction('city/changeActiveLocation', (newActiveLocation: string) => ({ payload: newActiveLocation }));
@@ -14,7 +13,7 @@ export const loadNeighborOffers = createAction('data/loadNeighborOffers', (neigh
 export const checkNeighborOffersLoaded = createAction('data/checkNeighborOffersLoading', (loadingStatus: boolean) => ({ payload: loadingStatus }));
 export const loadCommentList = createAction('data/loadCommentList', (commentList: Review[] | []) => ({ payload: commentList }));
 export const checkCommentListLoaded = createAction('data/checkCommentListLoading', (loadingStatus: boolean) => ({ payload: loadingStatus }));
-export const sendComment = createAction('data/sendComment', (newComment: ReviewForm | null) => ({ payload: newComment }));
+export const sendNewCommentList = createAction('data/sendNewCommentList', (newCommentList: Review[] | []) => ({ payload: newCommentList }));
 export const setReviewFormBlocked = createAction('data/setReviewFormBlocked', (isFormBlocked: boolean) => ({ payload: isFormBlocked }));
 export const setError = createAction('data/setError', (newError: string) => ({ payload: newError }));
 export const setUserLogin = createAction('auth/setUserLogin', (userLogin: string) => ({ payload: userLogin }));

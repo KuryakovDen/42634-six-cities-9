@@ -5,7 +5,7 @@ import {
   loadCommentList,
   loadNeighborOffers,
   loadOffer,
-  loadOffers, sendComment,
+  loadOffers, sendNewCommentList,
   setAuthStatusLoading,
   setError, setIsCurrentOfferLoading, setReviewFormBlocked
 } from './action';
@@ -13,6 +13,7 @@ import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import ReviewForm from '../components/review-form/review-form';
+import {Review} from '../types/review';
 
 export type AuthData = {
   login: string;
@@ -69,8 +70,9 @@ export const loadCommentListAction = createAsyncThunk('data/commentList', async 
 
 export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('data/sendCommentAction', async () => {
   try {
-    const { data } = await api.post<ReviewForm | null>(`${AppRoute.Comments}/${offerId}`, formData);
-    store.dispatch(sendComment(data));
+    const { data } = await api.post<Review[] | []>(`${AppRoute.Comments}/${offerId}`, formData);
+    console.log(data)
+    store.dispatch(sendNewCommentList(data));
     store.dispatch(setReviewFormBlocked(false));
   } catch (error) {
     store.dispatch(setReviewFormBlocked(false));

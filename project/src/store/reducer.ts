@@ -3,7 +3,7 @@ import {
   changeActiveLocation,
   changeActiveSortingOption,
   changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded, loadCommentList, loadNeighborOffers, loadOffer,
-  loadOffers, setAuthStatusLoading,
+  loadOffers, sendNewCommentList, setAuthStatusLoading,
   setError, setIsCurrentOfferLoading, setReviewFormBlocked,
   setUserLogin
 } from './action';
@@ -25,7 +25,7 @@ type initialStateType = {
   commentList: Review[] | [];
   isCommentListLoaded: boolean;
   isReviewFormBlocked: boolean;
-  newComment: ReviewForm | null;
+  newCommentList: Review[] | [];
   error: string;
   userLogin: string;
 };
@@ -43,7 +43,7 @@ const initialState: initialStateType = {
   commentList: [],
   isCommentListLoaded: false,
   isReviewFormBlocked: false,
-  newComment: null,
+  newCommentList: [],
   error: '',
   userLogin: '',
 };
@@ -73,6 +73,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadCommentList, (state, action) => {
       state.commentList = action.payload;
+    })
+    .addCase(sendNewCommentList, (state, action) => {
+      state.newCommentList = action.payload;
     })
     .addCase(checkCommentListLoaded, (state, action) => {
       state.isCommentListLoaded = action.payload;

@@ -9,7 +9,7 @@ import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import {setIsCurrentOfferLoading} from '../../store/action';
+import {sendNewCommentList, setIsCurrentOfferLoading} from '../../store/action';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -22,6 +22,7 @@ function OfferScreen(): JSX.Element {
   const neighborOffers = useAppSelector((state) => state.neighborOffers);
   const neighborOffersLoaded = useAppSelector((state) => state.isNeighborOffersLoaded);
   const commentList = useAppSelector((state) => state.commentList);
+  const newCommentList = useAppSelector((state) => state.newCommentList);
   const commentListLoaded = useAppSelector((state) => state.isCommentListLoaded);
 
   useEffect(() => {
@@ -33,7 +34,10 @@ function OfferScreen(): JSX.Element {
       dispatch(loadCommentListAction(+id));
     }
 
-    return () => { dispatch(setIsCurrentOfferLoading(true)); };
+    return () => {
+      dispatch(setIsCurrentOfferLoading(true));
+      dispatch(sendNewCommentList([]));
+    };
   }, [dispatch, id, navigate]);
 
   const points = currentOffer && [ ...neighborOffers, currentOffer ].map((offer) => offer && offer.location);
@@ -122,7 +126,7 @@ function OfferScreen(): JSX.Element {
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <ReviewsList reviews={commentList} />
+                <ReviewsList reviews={newCommentList.length > 0 ? newCommentList : commentList} />
                 { authStatus === AuthStatus.Auth && <ReviewForm /> }
               </section>
             </div>
