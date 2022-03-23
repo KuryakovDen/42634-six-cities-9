@@ -2,14 +2,14 @@ import React, {ChangeEvent, useState} from 'react';
 import {Link, Navigate} from 'react-router-dom';
 import {AppRoute, AuthStatus} from '../../const';
 import {AuthData, loginAction} from '../../store/api-actions';
-import {setUserLogin} from '../../store/action';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import Spinner from '../../components/spinner/spinner';
+import {setUserLogin} from '../../store/auth/auth';
 
 function LoginScreen(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatusLoading = useAppSelector((state) => state.isAuthStatusLoading);
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatusLoading = useAppSelector(({AUTH}) => AUTH.isAuthStatusLoading);
+  const authStatus = useAppSelector(({AUTH}) => AUTH.authStatus);
 
   const [authData, setAuthData] = useState<AuthData>({
     login: '',

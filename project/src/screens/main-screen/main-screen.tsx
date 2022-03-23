@@ -11,10 +11,10 @@ import Spinner from '../../components/spinner/spinner';
 function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
-  const activeLocation = useAppSelector((state) => state.activeLocation);
-  const sortingOption = useAppSelector((state) => state.activeSortingOption);
+  const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
+  const sortingOption = useAppSelector(({OFFER}) => OFFER.activeSortingOption);
+  const offerList = useAppSelector(({OFFER}) => OFFER.offerList);
 
-  const offerList = useAppSelector((state) => state.offerList);
   const offersForActiveLocation = offerList.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
 

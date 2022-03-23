@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {changeActiveLocation} from '../../store/action';
+import {changeActiveLocation} from '../../store/city/city';
 
 function LocationTabs(): JSX.Element {
   const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-  const activeLocation = useAppSelector((state) => state.activeLocation);
+  const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
   const dispatch = useAppDispatch();
 
   return (
