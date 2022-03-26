@@ -11,6 +11,7 @@ type OfferState = {
   neighborOffers: Offer[] | [];
   isNeighborOffersLoaded: boolean;
   isReviewFormBlocked: boolean;
+  favoriteOffers: Offer[] | [];
 };
 
 const initialState: OfferState = {
@@ -22,6 +23,7 @@ const initialState: OfferState = {
   neighborOffers: [],
   isNeighborOffersLoaded: false,
   isReviewFormBlocked: false,
+  favoriteOffers: [],
 };
 
 export const offerSlice = createSlice({
@@ -43,6 +45,9 @@ export const offerSlice = createSlice({
     changeFavoriteOffer: (state, action) => {
       state.currentFavoriteOffer = action.payload;
     },
+    loadFavoriteOffers: (state, action) => {
+      state.favoriteOffers = action.payload;
+    },
     loadNeighborOffers: (state, action) => {
       state.neighborOffers = action.payload;
     },
@@ -61,6 +66,7 @@ export const {
   loadOffer,
   setIsCurrentOfferLoading,
   changeFavoriteOffer,
+  loadFavoriteOffers,
   loadNeighborOffers,
   checkNeighborOffersLoaded,
   setReviewFormBlocked,

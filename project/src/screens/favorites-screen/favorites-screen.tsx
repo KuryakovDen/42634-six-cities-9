@@ -1,13 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Header from '../../components/header/header';
 import OffersList from '../../components/offers-list/offers-list';
-import {Offer} from '../../types/offer';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {loadFavoriteOffersAction} from '../../store/api-actions';
 
-type FavoritesScreenProps = {
-  offers: Offer[];
-};
+function FavoritesScreen(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const favoritesOffers = useAppSelector(({OFFER}) => OFFER.favoriteOffers);
 
-function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
+  useEffect(() => {
+    dispatch(loadFavoriteOffersAction());
+  }, []);
+
+
   return (
     <div className="page">
       <Header />
@@ -26,7 +31,7 @@ function FavoritesScreen({ offers }: FavoritesScreenProps): JSX.Element {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  <OffersList offers={offers} />
+                  <OffersList offers={favoritesOffers} />
                 </div>
               </li>
 

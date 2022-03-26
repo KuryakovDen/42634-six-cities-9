@@ -7,7 +7,7 @@ import ReviewForm from '../components/review-form/review-form';
 import {Review} from '../types/review';
 import {
   changeFavoriteOffer,
-  checkNeighborOffersLoaded,
+  checkNeighborOffersLoaded, loadFavoriteOffers,
   loadNeighborOffers,
   loadOffer,
   loadOffers,
@@ -69,6 +69,15 @@ export const changeFavoriteStatusAction = (offerId: number, status: number) => c
     errorHandle(error);
   }
 })();
+
+export const loadFavoriteOffersAction = createAsyncThunk('offer/loadFavoriteOffers', async () => {
+  try {
+    const { data } = await api.get(AppRoute.Favorite);
+    store.dispatch(loadFavoriteOffers(data));
+  } catch (error) {
+    errorHandle(error);
+  }
+});
 
 export const loadCommentListAction = createAsyncThunk('comment/commentList', async (offerId: number | undefined) => {
   try {

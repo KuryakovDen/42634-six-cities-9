@@ -23,7 +23,7 @@ function App(): JSX.Element {
       <Routes>
         <Route path={AppRoute.Main} element={<MainScreen />} />
         <Route path={AppRoute.Login} element={<LoginScreen />} />
-        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authStatus}><FavoritesScreen offers={[]} /></PrivateRoute>} />
+        <Route path={AppRoute.Favorites} element={<PrivateRoute authStatus={authStatus}><FavoritesScreen /></PrivateRoute>} />
         <Route path={AppRoute.OfferId} element={<OfferScreen />} />
         <Route path={AppRoute.NotFound} element={<NotFoundScreen />} />
       </Routes>
