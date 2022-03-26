@@ -6,6 +6,7 @@ import {errorHandle} from '../services/error-handle';
 import ReviewForm from '../components/review-form/review-form';
 import {Review} from '../types/review';
 import {
+  changeFavoriteOffer,
   checkNeighborOffersLoaded,
   loadNeighborOffers,
   loadOffer,
@@ -15,6 +16,7 @@ import {
 import {checkCommentListLoaded, loadCommentList, sendNewCommentList} from './comment/comment';
 import {changeAuthStatus, setAuthStatusLoading} from './auth/auth';
 import {setError} from './error/error';
+import {Offer} from '../types/offer';
 
 export type AuthData = {
   login: string;
@@ -27,7 +29,7 @@ export type UserData = {
   token: string;
 };
 
-export const loadOffersAction = createAsyncThunk('data/loadOffers', async () => {
+export const loadOffersAction = createAsyncThunk('offer/loadOffers', async () => {
   try {
     const { data } = await api.get(AppRoute.Hotels);
     store.dispatch(loadOffers(data));
@@ -36,7 +38,7 @@ export const loadOffersAction = createAsyncThunk('data/loadOffers', async () => 
   }
 });
 
-export const loadOfferAction = createAsyncThunk('data/loadOffer', async (offerId: number | undefined) => {
+export const loadOfferAction = createAsyncThunk('offer/loadOffer', async (offerId: number | undefined) => {
   try {
     const { data } = await api.get(`${AppRoute.Hotels}/${offerId}`);
     store.dispatch(loadOffer(data));
@@ -47,7 +49,7 @@ export const loadOfferAction = createAsyncThunk('data/loadOffer', async (offerId
   }
 });
 
-export const loadNeighborOffersAction = createAsyncThunk('data/loadNeighborOffers', async (offerId: number | undefined) => {
+export const loadNeighborOffersAction = createAsyncThunk('offer/loadNeighborOffers', async (offerId: number | undefined) => {
   try {
     const { data } = await api.get(`${AppRoute.Hotels}/${offerId}/nearby`);
     store.dispatch(loadNeighborOffers(data));
@@ -58,7 +60,17 @@ export const loadNeighborOffersAction = createAsyncThunk('data/loadNeighborOffer
   }
 });
 
-export const loadCommentListAction = createAsyncThunk('data/commentList', async (offerId: number | undefined) => {
+export const changeFavoriteStatusAction = (offerId: number, status: number) => createAsyncThunk('offer/changeFavoriteStatus', async () => {
+  try {
+    const { data } = await api.post<Offer>(`${AppRoute.Favorite}/${offerId}/${status}`);
+    store.dispatch(changeFavoriteOffer(data));
+  } catch (error) {
+    store.dispatch(changeFavoriteOffer(null));
+    errorHandle(error);
+  }
+})();
+
+export const loadCommentListAction = createAsyncThunk('comment/commentList', async (offerId: number | undefined) => {
   try {
     const { data } = await api.get(`${AppRoute.Comments}/${offerId}`);
     store.dispatch(loadCommentList(data));
@@ -69,7 +81,7 @@ export const loadCommentListAction = createAsyncThunk('data/commentList', async 
   }
 });
 
-export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('data/sendCommentAction', async () => {
+export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('comment/sendCommentAction', async () => {
   try {
     const { data } = await api.post<Review[] | []>(`${AppRoute.Comments}/${offerId}`, formData);
     store.dispatch(sendNewCommentList(data));
