@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import Header from '../../components/header/header';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {loadFavoriteOffersAction} from '../../store/api-actions';
+import {changeFavoriteStatusAction, loadFavoriteOffersAction} from '../../store/api-actions';
 import {Offer} from '../../types/offer';
 
 function FavoritesScreen(): JSX.Element {
@@ -13,6 +13,10 @@ function FavoritesScreen(): JSX.Element {
   useEffect(() => {
     dispatch(loadFavoriteOffersAction());
   }, []);
+
+  const onBookmarkClick = (offerId: number) => {
+    dispatch(changeFavoriteStatusAction(offerId, 0));
+  };
 
   return (
     <div className={favoritesOffers.length > 0 ? 'page' : 'page page--favorites-empty'}>
@@ -52,7 +56,11 @@ function FavoritesScreen(): JSX.Element {
                                         <b className="place-card__price-value">&euro;{offer.price}</b>
                                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                                       </div>
-                                      <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
+                                      <button
+                                        className="place-card__bookmark-button place-card__bookmark-button--active button"
+                                        type="button"
+                                        onClick={() => onBookmarkClick(offer.id)}
+                                      >
                                         <svg className="place-card__bookmark-icon" width="18" height="19">
                                           <use xlinkHref="#icon-bookmark" />
                                         </svg>
