@@ -1,5 +1,5 @@
 import OfferCard from '../offer-card/offer-card';
-import React from 'react';
+import React, {memo} from 'react';
 import {Offer, OfferLocation} from '../../types/offer';
 
 type OffersListProps = {
@@ -22,4 +22,4 @@ function OffersList({ offers, onMouseLeave, onMouseOver }: OffersListProps): JSX
   );
 }
 
-export default OffersList;
+export default memo(OffersList, (prevProps, nextProps) => prevProps.offers === nextProps.offers);
