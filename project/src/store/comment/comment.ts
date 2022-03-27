@@ -26,8 +26,8 @@ export const commentSlice = createSlice({
     },
     sendNewCommentList: (state, action) => {
       state.newCommentList = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { loadCommentList, checkCommentListLoaded, sendNewCommentList } = commentSlice.actions;

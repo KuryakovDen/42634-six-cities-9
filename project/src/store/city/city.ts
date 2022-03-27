@@ -6,7 +6,7 @@ type CityState = {
 };
 
 const initialState: CityState = {
-  activeLocation: 'Paris'
+  activeLocation: 'Paris',
 };
 
 export const citySlice = createSlice({
@@ -15,8 +15,8 @@ export const citySlice = createSlice({
   reducers: {
     changeActiveLocation: (state, action) => {
       state.activeLocation = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { changeActiveLocation } = citySlice.actions;
