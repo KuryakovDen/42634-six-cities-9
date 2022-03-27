@@ -41,7 +41,7 @@ export const offerSlice = createSlice({
       state.isCurrentOfferLoading = action.payload;
     },
     changeFavoriteOffer: (state, action) => {
-      const index = state.offerList.findIndex((offer) => offer.id === action.payload.id)
+      const index = state.offerList.findIndex((offer) => offer.id === action.payload.id);
       state.offerList[index].isFavorite = action.payload.isFavorite;
     },
     loadFavoriteOffers: (state, action) => {
