@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {changeActiveLocation} from '../../store/city/city';
+import {memo} from 'react';
 
 function LocationTabs(): JSX.Element {
   const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
@@ -25,4 +26,4 @@ function LocationTabs(): JSX.Element {
   );
 }
 
-export default LocationTabs;
+export default memo(LocationTabs);

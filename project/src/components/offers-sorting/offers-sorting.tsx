@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeActiveSortingOption} from '../../store/offer/offer';
 
@@ -39,4 +39,4 @@ function OffersSorting(): JSX.Element {
   );
 }
 
-export default OffersSorting;
+export default memo(OffersSorting);
