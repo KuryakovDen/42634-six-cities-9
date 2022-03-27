@@ -7,12 +7,13 @@ import {Offer} from '../../types/offer';
 function FavoritesScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoritesOffers: Offer[] | [] = useAppSelector(({OFFER}) => OFFER.favoriteOffers);
+  const offerList: Offer[] | [] = useAppSelector(({OFFER}) => OFFER.offerList);
 
   const uniqueCities = [...new Set(favoritesOffers.map((offer) => offer.city.name))];
 
   useEffect(() => {
     dispatch(loadFavoriteOffersAction());
-  }, []);
+  }, [offerList]);
 
   const onBookmarkClick = (offerId: number) => {
     dispatch(changeFavoriteStatusAction(offerId, 0));
