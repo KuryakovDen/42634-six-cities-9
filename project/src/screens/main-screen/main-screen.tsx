@@ -20,7 +20,6 @@ function MainScreen(): JSX.Element {
 
   const offersForActiveLocation = offerList.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
-  const offersForActiveCity = offerList.filter((offer) => offer.city.name === activeLocation);
 
   const getOffersBySorting = useMemo(() => (option: string): Offer[] => {
     switch (option) {
@@ -33,7 +32,7 @@ function MainScreen(): JSX.Element {
       default:
         return offersForActiveLocation;
     }
-  }, [sortingOption, activeLocation]);
+  }, [sortingOption, activeLocation, offerList]);
 
   return offerList.length > 0 ? (
     (
@@ -52,7 +51,7 @@ function MainScreen(): JSX.Element {
                 <OffersSorting />
                 {offerList &&
                   <OffersList
-                    offers={getOffersBySorting(sortingOption).length > 0 ? getOffersBySorting(sortingOption) : offersForActiveCity}
+                    offers={getOffersBySorting(sortingOption)}
                     onMouseOver={toggleActiveOffer}
                     onMouseLeave={toggleActiveOffer}
                   />}
