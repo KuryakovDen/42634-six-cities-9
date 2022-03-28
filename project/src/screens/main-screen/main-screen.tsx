@@ -20,6 +20,7 @@ function MainScreen(): JSX.Element {
 
   const offersForActiveLocation = offerList.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
+  const offersForActiveCity = offerList.filter((offer) => offer.city.name === activeLocation);
 
   const getOffersBySorting = useMemo(() => (option: string): Offer[] => {
     switch (option) {
@@ -49,7 +50,12 @@ function MainScreen(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
                 <OffersSorting />
-                { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={toggleActiveOffer} onMouseLeave={toggleActiveOffer} /> }
+                {offerList &&
+                  <OffersList
+                    offers={getOffersBySorting(sortingOption).length > 0 ? getOffersBySorting(sortingOption) : offersForActiveCity}
+                    onMouseOver={toggleActiveOffer}
+                    onMouseLeave={toggleActiveOffer}
+                  />}
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
