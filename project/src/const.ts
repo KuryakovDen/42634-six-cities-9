@@ -40,3 +40,11 @@ export enum HttpCode {
   Unauthorized = 401,
   NotFound = 404
 }
+
+export enum NameSpace {
+  Auth = 'AUTH',
+  City = 'CITY',
+  Offer = 'OFFER',
+  Comment = 'COMMENT',
+  Error = 'ERROR'
+}

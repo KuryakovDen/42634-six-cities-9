@@ -3,7 +3,7 @@ import {MAX_REVIEW_STARS_COUNT, ValidReviewTextLength} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {sendCommentAction} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
-import {setReviewFormBlocked} from '../../store/action';
+import {setReviewFormBlocked} from '../../store/offer/offer';
 
 type ReviewForm = {
   rating: null | number;
@@ -19,7 +19,7 @@ function ReviewForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
 
-  const formBlocked = useAppSelector((state) => state.isReviewFormBlocked);
+  const formBlocked = useAppSelector(({OFFER}) => OFFER.isReviewFormBlocked);
 
   const onSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();

@@ -6,8 +6,8 @@ import {store} from '../../store';
 import {useAppSelector} from '../../hooks';
 
 function UserInfo(): JSX.Element {
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const userLogin = useAppSelector((state) => state.userLogin);
+  const authStatus = useAppSelector(({AUTH}) => AUTH.authStatus);
+  const userLogin = useAppSelector(({AUTH}) => AUTH.userLogin);
 
   return (
     <nav className="header__nav">

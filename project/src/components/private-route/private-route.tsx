@@ -9,7 +9,7 @@ type PrivateRouteProps = RouteProps & {
 }
 
 function PrivateRoute({ authStatus, children }: PrivateRouteProps): JSX.Element {
-  const authStatusLoading = useAppSelector((state) => state.isAuthStatusLoading);
+  const authStatusLoading = useAppSelector(({AUTH}) => AUTH.isAuthStatusLoading);
 
   if (!authStatusLoading) {
     return <Spinner />;

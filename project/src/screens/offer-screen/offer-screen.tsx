@@ -9,21 +9,22 @@ import Map from '../../components/map/map';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {loadCommentListAction, loadNeighborOffersAction, loadOfferAction} from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import {sendNewCommentList, setIsCurrentOfferLoading} from '../../store/action';
+import {setIsCurrentOfferLoading} from '../../store/offer/offer';
+import {sendNewCommentList} from '../../store/comment/comment';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const authStatus = useAppSelector((state) => state.authStatus);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const currentOfferLoading = useAppSelector((state) => state.isCurrentOfferLoading);
-  const neighborOffers = useAppSelector((state) => state.neighborOffers);
-  const neighborOffersLoaded = useAppSelector((state) => state.isNeighborOffersLoaded);
-  const commentList = useAppSelector((state) => state.commentList);
-  const newCommentList = useAppSelector((state) => state.newCommentList);
-  const commentListLoaded = useAppSelector((state) => state.isCommentListLoaded);
+  const authStatus = useAppSelector(({AUTH}) => AUTH.authStatus);
+  const currentOffer = useAppSelector(({OFFER}) => OFFER.currentOffer);
+  const currentOfferLoading = useAppSelector(({OFFER}) => OFFER.isCurrentOfferLoading);
+  const neighborOffers = useAppSelector(({OFFER}) => OFFER.neighborOffers);
+  const neighborOffersLoaded = useAppSelector(({OFFER}) => OFFER.isNeighborOffersLoaded);
+  const commentList = useAppSelector(({COMMENT}) => COMMENT.commentList);
+  const newCommentList = useAppSelector(({COMMENT}) => COMMENT.newCommentList);
+  const commentListLoaded = useAppSelector(({COMMENT}) => COMMENT.isCommentListLoaded);
 
   useEffect(() => {
     if (!id) {

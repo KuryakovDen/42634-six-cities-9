@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import Header from '../../components/header/header';
 import LocationTabs from '../../components/location-tabs/location-tabs';
 import OffersSorting from '../../components/offers-sorting/offers-sorting';
@@ -11,14 +11,19 @@ import Spinner from '../../components/spinner/spinner';
 function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
 
-  const activeLocation = useAppSelector((state) => state.activeLocation);
-  const sortingOption = useAppSelector((state) => state.activeSortingOption);
+  const toggleActiveOffer = useCallback((id) => {
+    setActiveOfferLocation(id);
+  }, []);
 
-  const offerList = useAppSelector((state) => state.offerList);
+  const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
+  const sortingOption = useAppSelector(({OFFER}) => OFFER.activeSortingOption);
+  const offerList = useAppSelector(({OFFER}) => OFFER.offerList);
+
   const offersForActiveLocation = offerList.filter((offer) => offer.city.name === activeLocation);
   const points = offersForActiveLocation.map((offer) => offer.location);
+  const offersForActiveCity = offerList.filter((offer) => offer.city.name === activeLocation);
 
-  const getOffersBySorting = (option: string): Offer[] => {
+  const getOffersBySorting = useMemo(() => (option: string): Offer[] => {
     switch (option) {
       case 'Price: low to high':
         return offersForActiveLocation.sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
@@ -29,7 +34,7 @@ function MainScreen(): JSX.Element {
       default:
         return offersForActiveLocation;
     }
-  };
+  }, [sortingOption, activeLocation]);
 
   return offerList.length > 0 ? (
     (
@@ -46,7 +51,12 @@ function MainScreen(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offersForActiveLocation.length} places to stay in {activeLocation}</b>
                 <OffersSorting />
-                { offerList && <OffersList offers={getOffersBySorting(sortingOption)} onMouseOver={setActiveOfferLocation} onMouseLeave={setActiveOfferLocation} /> }
+                {offerList &&
+                  <OffersList
+                    offers={getOffersBySorting(sortingOption).length > 0 ? getOffersBySorting(sortingOption) : offersForActiveCity}
+                    onMouseOver={toggleActiveOffer}
+                    onMouseLeave={toggleActiveOffer}
+                  />}
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>

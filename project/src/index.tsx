@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {reviews} from './mocks/reviews';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, loadOffersAction} from './store/api-actions';
@@ -14,7 +13,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ErrorMessage />
-      <App reviews={reviews} />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

@@ -1,19 +1,20 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {api, store} from './index';
-import {
-  changeAuthStatus, checkCommentListLoaded, checkNeighborOffersLoaded,
-  loadCommentList,
-  loadNeighborOffers,
-  loadOffer,
-  loadOffers, sendNewCommentList,
-  setAuthStatusLoading,
-  setError, setIsCurrentOfferLoading, setReviewFormBlocked
-} from './action';
 import {AppRoute, AuthStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {deleteToken, saveToken} from '../services/token';
 import {errorHandle} from '../services/error-handle';
 import ReviewForm from '../components/review-form/review-form';
 import {Review} from '../types/review';
+import {
+  checkNeighborOffersLoaded,
+  loadNeighborOffers,
+  loadOffer,
+  loadOffers,
+  setIsCurrentOfferLoading, setReviewFormBlocked
+} from './offer/offer';
+import {checkCommentListLoaded, loadCommentList, sendNewCommentList} from './comment/comment';
+import {changeAuthStatus, setAuthStatusLoading} from './auth/auth';
+import {setError} from './error/error';
 
 export type AuthData = {
   login: string;

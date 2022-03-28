@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {memo, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {changeActiveSortingOption} from '../../store/action';
+import {changeActiveSortingOption} from '../../store/offer/offer';
 
 function OffersSorting(): JSX.Element {
   const [open, setOpen] = useState(false);
 
   const sortingOptions = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
   const dispatch = useAppDispatch();
-  const activeSortingOption = useAppSelector((state) => state.activeSortingOption);
+  const activeSortingOption = useAppSelector(({OFFER}) => OFFER.activeSortingOption);
 
   const onOptionClick = (option: string) => {
     dispatch(changeActiveSortingOption(option));
@@ -39,4 +39,4 @@ function OffersSorting(): JSX.Element {
   );
 }
 
-export default OffersSorting;
+export default memo(OffersSorting);

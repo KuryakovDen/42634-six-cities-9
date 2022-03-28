@@ -6,18 +6,13 @@ import FavoritesScreen from '../../screens/favorites-screen/favorites-screen';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../../screens/offer-screen/offer-screen';
 import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
-import {Review} from '../../types/review';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import React, {useEffect} from 'react';
-import {loadOffers} from '../../store/action';
+import {loadOffers} from '../../store/offer/offer';
 
-type AppProps = {
-  reviews: Review[];
-};
-
-function App({ reviews }: AppProps): JSX.Element {
+function App(): JSX.Element {
   const dispatch = useAppDispatch();
-  const authStatus = useAppSelector((state) => state.authStatus);
+  const authStatus = useAppSelector(({ AUTH }) => AUTH.authStatus);
 
   useEffect(() => {
     dispatch(loadOffers([]));

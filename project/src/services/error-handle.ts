@@ -1,8 +1,8 @@
 import request from 'axios';
 import {store} from '../store';
-import {setError} from '../store/action';
 import {clearErrorAction} from '../store/api-actions';
 import {HttpCode} from '../const';
+import {setError} from '../store/error/error';
 
 export const errorHandle = (error: unknown) => {
   if (!request.isAxiosError(error)) {
