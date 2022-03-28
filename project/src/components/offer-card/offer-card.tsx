@@ -30,9 +30,9 @@ function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.El
   const onClickFavoriteButton = (offerId: number) => {
     if (authStatus === AuthStatus.Auth) {
       dispatch(changeFavoriteStatusAction(offerId, getOfferStatus(isFavorite)));
+    } else {
+      return navigate(AppRoute.Login);
     }
-
-    return navigate(AppRoute.Login);
   };
 
   return (
