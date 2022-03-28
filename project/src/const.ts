@@ -23,6 +23,7 @@ export enum AppRoute {
   Logout = '/logout',
   Hotels = '/hotels',
   Favorites = '/favorites',
+  Favorite = '/favorite',
   OfferId = '/offer/:id',
   Offer = '/offer',
   Comments = '/comments',
