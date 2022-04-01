@@ -73,6 +73,8 @@ function OfferScreen(): JSX.Element {
 
   const { title, images, isPremium, isFavorite, description, rating, type, bedrooms, maxAdults, price, goods, host } = currentOffer;
 
+  console.log(isFavorite)
+
   return (
     <div className="page">
       <Header />
