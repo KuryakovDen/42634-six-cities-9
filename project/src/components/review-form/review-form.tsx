@@ -32,7 +32,9 @@ function ReviewForm(): JSX.Element {
   };
 
   const ratingStars = new Array(MAX_REVIEW_STARS_COUNT).fill(null).map((el, index) => el = index + 1).reverse();
-  const setField = ({target}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setFormData((prevState) => ({...prevState, [target.name]: target.value}));
+  const setField = ({target}: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setFormData((prevState) => (
+    {...prevState, [target.name]: target.value}
+  ));
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -48,6 +50,7 @@ function ReviewForm(): JSX.Element {
                   value={ratingStar}
                   id={`${ratingStar}-stars`}
                   type="radio"
+                  checked={Number(formData.rating) === ratingStar}
                   onChange={setField}
                 />
                 <label htmlFor={`${ratingStar}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
