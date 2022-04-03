@@ -17,14 +17,15 @@ function App(): JSX.Element {
   const offerList = useAppSelector(({OFFER}) => OFFER.offerList);
   const offerListLoaded = useAppSelector(({OFFER}) => OFFER.isOfferListLoaded)
 
-  const locations = [...new Set(offerList.map((offer) => offer.city.name))];
+  const locations = [...new Set(offerList.map((offer) => offer.city.name))]
+    .sort((prevLocation, nextLocation) => prevLocation > nextLocation ? 1 : -1);
 
   useEffect(() => {
     dispatch(loadOffers([]));
   }, []);
 
   useEffect(() => {
-    dispatch(setLocationList(locations));
+    dispatch(setLocationList([locations[5], locations[2], locations[1], locations[0], locations[4], locations[3]]));
   }, [offerListLoaded])
 
   return (

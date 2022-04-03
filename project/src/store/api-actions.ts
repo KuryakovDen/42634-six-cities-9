@@ -35,7 +35,7 @@ export const loadOffersAction = createAsyncThunk('offer/loadOffers', async () =>
     store.dispatch(loadOffers(data));
     store.dispatch(checkOfferListLoaded(true));
   } catch (error) {
-    store.dispatch(checkOfferListLoaded(true));
+    // store.dispatch(checkOfferListLoaded(true));
     errorHandle(error);
   }
 });
