@@ -57,7 +57,9 @@ function Map({ city, points, activeOfferLocation }: MapProps): JSX.Element {
   }, [map, points]);
 
   useEffect(() => {
-    map?.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
+    const { latitude, longitude, zoom } = city.location;
+
+    map?.flyTo([latitude, longitude], zoom);
   }, [city]);
 
   return (
