@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {sendCommentAction} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
 import {setReviewFormBlocked} from '../../store/offer/offer';
+import {ReviewFieldset} from './styled';
 
 type ReviewForm = {
   rating: null | number;
@@ -38,7 +39,7 @@ function ReviewForm(): JSX.Element {
 
   return (
     <form className="reviews__form form" action="#" method="post">
-      <fieldset disabled={formBlocked} style={{ border: 'none' }}>
+      <ReviewFieldset disabled={formBlocked}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           {
@@ -84,7 +85,7 @@ function ReviewForm(): JSX.Element {
             Submit
           </button>
         </div>
-      </fieldset>
+      </ReviewFieldset>
     </form>
   );
 }

@@ -16,6 +16,7 @@ import {
 import Spinner from '../../components/spinner/spinner';
 import {setIsCurrentOfferLoading} from '../../store/offer/offer';
 import {sendNewCommentList} from '../../store/comment/comment';
+import {MapContainer} from './styled';
 
 function OfferScreen(): JSX.Element {
   const { id } = useParams();
@@ -156,9 +157,9 @@ function OfferScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          <section className="property__map map" style={{ backgroundImage: 'none', height: '700px', marginBottom: '80px' }}>
+          <MapContainer className="property__map map">
             <Map city={currentOffer.city} points={points} activeOfferLocation={currentOffer.location} />
-          </section>
+          </MapContainer>
         </section>
         <div className="container">
           <section className="near-places places">
