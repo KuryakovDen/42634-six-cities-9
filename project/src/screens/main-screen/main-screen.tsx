@@ -6,6 +6,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import {Offer, OfferLocation} from '../../types/offer';
 import Map from '../../components/map/map';
 import {useAppSelector} from '../../hooks';
+import {CitiesMap, PlacesWrapper} from './styled';
 
 function MainScreen(): JSX.Element {
   const [activeOfferLocation, setActiveOfferLocation] = useState<null | OfferLocation>(null);
@@ -57,9 +58,9 @@ function MainScreen(): JSX.Element {
                   />}
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map" style={{ backgroundImage: 'none', width: '512px' }}>
+                <CitiesMap className="cities__map map">
                   { offersForActiveLocation.length > 0 && <Map city={offersForActiveLocation[0].city} points={points} activeOfferLocation={activeOfferLocation} /> }
-                </section>
+                </CitiesMap>
               </div>
             </div>
           </div>
@@ -81,7 +82,7 @@ function MainScreen(): JSX.Element {
                 <p className="cities__status-description">We could not find any property available at the moment in {activeLocation}</p>
               </div>
             </section>
-            <div className="cities__right-section" style={{backgroundImage: 'url(../img/no-places@2x.png)'}}/>
+            <PlacesWrapper className="cities__right-section" />
           </div>
         </div>
       </main>

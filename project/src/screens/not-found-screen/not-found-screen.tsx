@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {CitiesContainer, Error, RouteLink} from './styled';
 
 function NotFoundScreen(): JSX.Element {
   return (
@@ -23,12 +23,11 @@ function NotFoundScreen(): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <div style={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
-                <span style={{fontSize: '28px', fontWeight: '500', marginRight: '10px'}}>404</span>
+              <CitiesContainer>
+                <Error>404</Error>
                 <p>Not found</p>
-              </div>
-
-              <Link to={AppRoute.Main} style={{ color: 'blueviolet', textDecoration: 'underline' }}>Go to main page</Link>
+              </CitiesContainer>
+              <RouteLink to={AppRoute.Main}>Go to main page</RouteLink>
             </section>
           </div>
         </div>

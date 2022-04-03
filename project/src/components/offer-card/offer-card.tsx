@@ -1,9 +1,10 @@
 import React from 'react';
 import {Offer} from '../../types/offer';
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute, AuthStatus, RATING_COEFFICIENT} from '../../const';
+import {AppRoute, AuthStatus} from '../../const';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {changeFavoriteStatusAction} from '../../store/api-actions';
+import {RatingValue} from './styled';
 
 type OfferCardProps = {
   offer: Offer;
@@ -67,7 +68,7 @@ function OfferCard({ offer, onMouseOver, onMouseLeave }: OfferCardProps): JSX.El
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             {roundedRating}
-            <span style={{width: `${roundedRating * RATING_COEFFICIENT}%`}} />
+            <RatingValue roundedRating={roundedRating} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

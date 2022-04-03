@@ -4,6 +4,7 @@ import useMap from '../../hooks/use-map/use-map';
 import 'leaflet/dist/leaflet.css';
 import {icon, LayerGroup, marker} from 'leaflet';
 import {URL_ACTIVE_MARKER, URL_MARKER_DEFAULT} from '../../const';
+import {MapWrapper} from './styled';
 
 type MapProps = {
   city: CityLocation;
@@ -63,7 +64,7 @@ function Map({ city, points, activeOfferLocation }: MapProps): JSX.Element {
   }, [city]);
 
   return (
-    <div ref={mapRef} style={{ height: '751px' }} />
+    <MapWrapper ref={mapRef} />
   );
 }
 

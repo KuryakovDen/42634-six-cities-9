@@ -1,25 +1,11 @@
 import {useAppSelector} from '../../hooks';
-
+import {Message} from './styled';
 
 function ErrorMessage(): JSX.Element | null {
   const error = useAppSelector(({ERROR}) => ERROR.error);
 
   if (error) {
-    return (
-      <div
-        style={{
-          position: 'fixed',
-          top: '30px',
-          right: '30px',
-          padding: '10px',
-          backgroundColor: '#d96666',
-          color: 'white',
-          borderRadius: '5px',
-        }}
-      >
-        {error}
-      </div>
-    );
+    return <Message>{error}</Message>;
   }
 
   return null;
