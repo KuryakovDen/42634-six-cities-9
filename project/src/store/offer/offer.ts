@@ -1,7 +1,6 @@
 import {Offer} from '../../types/offer';
 import {NameSpace} from '../../const';
 import {createSlice} from '@reduxjs/toolkit';
-import {setLocationList} from '../city/city';
 
 type OfferState = {
   activeSortingOption: string;
