@@ -1,10 +1,12 @@
 import {Offer} from '../../types/offer';
 import {NameSpace} from '../../const';
 import {createSlice} from '@reduxjs/toolkit';
+import {setLocationList} from '../city/city';
 
 type OfferState = {
   activeSortingOption: string;
   offerList: Offer[];
+  isOfferListLoaded: boolean;
   currentOffer: Offer | null;
   isCurrentOfferLoading: boolean;
   neighborOffers: Offer[] | [];
@@ -16,6 +18,7 @@ type OfferState = {
 const initialState: OfferState = {
   activeSortingOption: 'Popular',
   offerList: [],
+  isOfferListLoaded: false,
   currentOffer: null,
   isCurrentOfferLoading: true,
   neighborOffers: [],
@@ -36,6 +39,9 @@ export const offerSlice = createSlice({
     },
     loadOffer: (state, action) => {
       state.currentOffer = action.payload;
+    },
+    checkOfferListLoaded: (state, action) => {
+      state.isOfferListLoaded = action.payload;
     },
     setIsCurrentOfferLoading: (state, action) => {
       state.isCurrentOfferLoading = action.payload;
@@ -77,6 +83,7 @@ export const offerSlice = createSlice({
 export const {
   changeActiveSortingOption,
   loadOffers,
+  checkOfferListLoaded,
   loadOffer,
   setIsCurrentOfferLoading,
   changeFavoriteOffer,

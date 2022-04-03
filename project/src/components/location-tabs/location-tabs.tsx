@@ -3,7 +3,7 @@ import {changeActiveLocation} from '../../store/city/city';
 import {memo} from 'react';
 
 function LocationTabs(): JSX.Element {
-  const locations = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+  const locations = useAppSelector(({CITY}) => CITY.locationList);
 
   const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
   const dispatch = useAppDispatch();

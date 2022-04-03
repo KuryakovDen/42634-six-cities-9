@@ -7,7 +7,7 @@ import ReviewForm from '../components/review-form/review-form';
 import {Review} from '../types/review';
 import {
   changeFavoriteOffer,
-  checkNeighborOffersLoaded, loadFavoriteOffers,
+  checkNeighborOffersLoaded, checkOfferListLoaded, loadFavoriteOffers,
   loadNeighborOffers,
   loadOffer,
   loadOffers,
@@ -33,7 +33,9 @@ export const loadOffersAction = createAsyncThunk('offer/loadOffers', async () =>
   try {
     const { data } = await api.get(AppRoute.Hotels);
     store.dispatch(loadOffers(data));
+    store.dispatch(checkOfferListLoaded(true));
   } catch (error) {
+    store.dispatch(checkOfferListLoaded(true));
     errorHandle(error);
   }
 });

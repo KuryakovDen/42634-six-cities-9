@@ -9,14 +9,23 @@ import NotFoundScreen from '../../screens/not-found-screen/not-found-screen';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import React, {useEffect} from 'react';
 import {loadOffers} from '../../store/offer/offer';
+import {setLocationList} from '../../store/city/city';
 
 function App(): JSX.Element {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(({ AUTH }) => AUTH.authStatus);
+  const offerList = useAppSelector(({OFFER}) => OFFER.offerList);
+  const offerListLoaded = useAppSelector(({OFFER}) => OFFER.isOfferListLoaded)
+
+  const locations = [...new Set(offerList.map((offer) => offer.city.name))];
 
   useEffect(() => {
     dispatch(loadOffers([]));
   }, []);
+
+  useEffect(() => {
+    dispatch(setLocationList(locations));
+  }, [offerListLoaded])
 
   return (
     <BrowserRouter>
