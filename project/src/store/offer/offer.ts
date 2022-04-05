@@ -2,7 +2,7 @@ import {Offer} from '../../types/offer';
 import {NameSpace} from '../../const';
 import {createSlice} from '@reduxjs/toolkit';
 
-type OfferState = {
+export type OfferState = {
   activeSortingOption: string;
   offerList: Offer[];
   isOfferListLoaded: boolean;

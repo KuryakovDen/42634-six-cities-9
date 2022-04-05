@@ -5,6 +5,11 @@ describe('Reducer: commentSlice', () => {
   const state = mockCommentState;
   const comment = mockComment;
 
+  it('returning initialState with unknown action', () => {
+    expect(commentSlice.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
+      .toEqual(state);
+  });
+
   describe('commentList tests', () => {
     it('set comment to commentList', () => {
       expect(commentSlice.reducer(state, loadCommentList([comment])))

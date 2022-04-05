@@ -4,6 +4,11 @@ import {mockCityState} from '../../mocks';
 describe('Reducer: citySlice', () => {
   const state = mockCityState;
 
+  it('returning initialState with unknown action', () => {
+    expect(citySlice.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
+      .toEqual(state);
+  });
+
   describe('locationList tests', () => {
     it('set some cities to locationList', () => {
       expect(citySlice.reducer(state, setLocationList(['Paris', 'Amsterdam'])))

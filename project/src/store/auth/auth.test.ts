@@ -5,6 +5,11 @@ import {mockAuthState} from '../../mocks';
 describe('Reducer: authSlice', () => {
   const state = mockAuthState;
 
+  it('returning initialState with unknown action', () => {
+    expect(authSlice.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
+      .toEqual(state);
+  });
+
   describe('authStatus changing tests', () => {
     it('set authStatus to AuthStatus.Auth', () => {
       expect(authSlice.reducer(state, changeAuthStatus(AuthStatus.Auth)))

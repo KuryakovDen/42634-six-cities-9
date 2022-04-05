@@ -4,6 +4,11 @@ import {mockErrorState} from '../../mocks';
 describe('Reducer: errorSlice', () => {
   const state = mockErrorState;
 
+  it('returning initialState with unknown action', () => {
+    expect(errorSlice.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
+      .toEqual(state);
+  });
+
   it('set errorText', () => {
     expect(errorSlice.reducer(state, setError('Some error')))
       .toEqual({ error: 'Some error' });
