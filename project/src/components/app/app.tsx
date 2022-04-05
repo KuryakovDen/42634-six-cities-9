@@ -23,7 +23,7 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    dispatch(setLocationList(locations.sort((prevLocation, nextLocation) => prevLocation > nextLocation ? 1 : -1)));
+    dispatch(setLocationList(locations.sort()));
   }, [offerListLoaded]);
 
   return (
