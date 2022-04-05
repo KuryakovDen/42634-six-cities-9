@@ -42,7 +42,7 @@ export const offerSlice = createSlice({
     checkOfferListLoaded: (state, action) => {
       state.isOfferListLoaded = action.payload;
     },
-    setIsCurrentOfferLoading: (state, action) => {
+    checkIsCurrentOfferLoading: (state, action) => {
       state.isCurrentOfferLoading = action.payload;
     },
     changeFavoriteOffer: (state, action) => {
@@ -73,7 +73,7 @@ export const offerSlice = createSlice({
     checkNeighborOffersLoaded: (state, action) => {
       state.isNeighborOffersLoaded = action.payload;
     },
-    setReviewFormBlocked: (state, action) => {
+    checkReviewFormBlocked: (state, action) => {
       state.isReviewFormBlocked = action.payload;
     },
   },
@@ -84,10 +84,10 @@ export const {
   loadOffers,
   checkOfferListLoaded,
   loadOffer,
-  setIsCurrentOfferLoading,
+  checkIsCurrentOfferLoading,
   changeFavoriteOffer,
   loadFavoriteOffers,
   loadNeighborOffers,
   checkNeighborOffersLoaded,
-  setReviewFormBlocked,
+  checkReviewFormBlocked,
 } = offerSlice.actions;

@@ -11,9 +11,9 @@ import {
   loadNeighborOffers,
   loadOffer,
   loadOffers,
-  setIsCurrentOfferLoading, setReviewFormBlocked
+  checkIsCurrentOfferLoading, checkReviewFormBlocked
 } from './offer/offer';
-import {checkCommentListLoaded, loadCommentList, sendNewCommentList} from './comment/comment';
+import {checkCommentListLoaded, loadCommentList, loadNewCommentList} from './comment/comment';
 import {changeAuthStatus, setAuthStatusLoading} from './auth/auth';
 import {setError} from './error/error';
 import {Offer} from '../types/offer';
@@ -43,9 +43,9 @@ export const loadOfferAction = createAsyncThunk('offer/loadOffer', async (offerI
   try {
     const { data } = await api.get(`${AppRoute.Hotels}/${offerId}`);
     store.dispatch(loadOffer(data));
-    store.dispatch(setIsCurrentOfferLoading(false));
+    store.dispatch(checkIsCurrentOfferLoading(false));
   } catch (error) {
-    store.dispatch(setIsCurrentOfferLoading(false));
+    store.dispatch(checkIsCurrentOfferLoading(false));
     errorHandle(error);
   }
 });
@@ -94,10 +94,10 @@ export const loadCommentListAction = createAsyncThunk('comment/commentList', asy
 export const sendCommentAction = (offerId: number | undefined, formData: ReviewForm) => createAsyncThunk('comment/sendCommentAction', async () => {
   try {
     const { data } = await api.post<Review[] | []>(`${AppRoute.Comments}/${offerId}`, formData);
-    store.dispatch(sendNewCommentList(data));
-    store.dispatch(setReviewFormBlocked(false));
+    store.dispatch(loadNewCommentList(data));
+    store.dispatch(checkReviewFormBlocked(false));
   } catch (error) {
-    store.dispatch(setReviewFormBlocked(false));
+    store.dispatch(checkReviewFormBlocked(false));
     errorHandle(error);
   }
 })();

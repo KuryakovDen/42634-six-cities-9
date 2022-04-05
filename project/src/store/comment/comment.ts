@@ -24,10 +24,10 @@ export const commentSlice = createSlice({
     checkCommentListLoaded: (state, action) => {
       state.isCommentListLoaded = action.payload;
     },
-    sendNewCommentList: (state, action) => {
+    loadNewCommentList: (state, action) => {
       state.newCommentList = action.payload;
     },
   },
 });
 
-export const { loadCommentList, checkCommentListLoaded, sendNewCommentList } = commentSlice.actions;
+export const { loadCommentList, checkCommentListLoaded, loadNewCommentList } = commentSlice.actions;

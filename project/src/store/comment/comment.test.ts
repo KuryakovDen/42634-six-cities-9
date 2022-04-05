@@ -1,4 +1,4 @@
-import {checkCommentListLoaded, commentSlice, loadCommentList, sendNewCommentList} from './comment';
+import {checkCommentListLoaded, commentSlice, loadCommentList, loadNewCommentList} from './comment';
 import {mockComment, mockCommentState} from '../../mocks';
 
 describe('Reducer: commentSlice', () => {
@@ -30,7 +30,7 @@ describe('Reducer: commentSlice', () => {
 
   describe('newCommentList tests', () => {
     it('set comment to newCommentList', () => {
-      expect(commentSlice.reducer(state, sendNewCommentList([comment])))
+      expect(commentSlice.reducer(state, loadNewCommentList([comment])))
         .toEqual({ commentList: [], newCommentList: [comment], isCommentListLoaded: false });
     });
 
@@ -41,7 +41,7 @@ describe('Reducer: commentSlice', () => {
         isCommentListLoaded: false
       };
 
-      expect(commentSlice.reducer(state, sendNewCommentList([])))
+      expect(commentSlice.reducer(state, loadNewCommentList([])))
         .toEqual({ commentList: [], newCommentList: [], isCommentListLoaded: false });
     });
   });

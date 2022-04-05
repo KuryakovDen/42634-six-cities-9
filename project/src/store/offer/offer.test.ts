@@ -4,7 +4,7 @@ import {
   checkOfferListLoaded, loadFavoriteOffers, loadNeighborOffers,
   loadOffer, loadOffers,
   offerSlice,
-  setIsCurrentOfferLoading, setReviewFormBlocked
+  checkIsCurrentOfferLoading, checkReviewFormBlocked
 } from './offer';
 
 describe('Reducer: offerSlice', () => {
@@ -45,7 +45,7 @@ describe('Reducer: offerSlice', () => {
   });
 
   it('checking isCurrentOfferLoading flag', () => {
-    expect(offerSlice.reducer(state, setIsCurrentOfferLoading(true)))
+    expect(offerSlice.reducer(state, checkIsCurrentOfferLoading(true)))
       .toEqual({ ...state, isCurrentOfferLoading: true });
   });
 
@@ -69,7 +69,7 @@ describe('Reducer: offerSlice', () => {
   });
 
   it('checking isReviewFormBlocked flag', () => {
-    expect(offerSlice.reducer(state, setReviewFormBlocked(true)))
+    expect(offerSlice.reducer(state, checkReviewFormBlocked(true)))
       .toEqual({ ...state, isReviewFormBlocked: true });
   });
 

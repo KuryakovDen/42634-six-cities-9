@@ -14,8 +14,8 @@ import {
   loadOfferAction
 } from '../../store/api-actions';
 import Spinner from '../../components/spinner/spinner';
-import {setIsCurrentOfferLoading} from '../../store/offer/offer';
-import {sendNewCommentList} from '../../store/comment/comment';
+import {checkIsCurrentOfferLoading} from '../../store/offer/offer';
+import {loadNewCommentList} from '../../store/comment/comment';
 import {MapContainer} from './styled';
 
 function OfferScreen(): JSX.Element {
@@ -42,8 +42,8 @@ function OfferScreen(): JSX.Element {
     }
 
     return () => {
-      dispatch(setIsCurrentOfferLoading(true));
-      dispatch(sendNewCommentList([]));
+      dispatch(checkIsCurrentOfferLoading(true));
+      dispatch(loadNewCommentList([]));
     };
   }, [dispatch, id, navigate]);
 
