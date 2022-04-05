@@ -3,6 +3,7 @@ import {AuthStatus} from './const';
 import {CityState} from './store/city/city';
 import {CommentState} from './store/comment/comment';
 import {Review} from './types/review';
+import {ErrorState} from './store/error/error';
 
 export const mockAuthState: AuthState = {
   authStatus: AuthStatus.Unknown, isAuthStatusLoading: false, userLogin: ''
@@ -30,4 +31,8 @@ export const mockComment: Review = {
     isPro: false,
     avatarUrl: 'avatar.jpg',
   }
+};
+
+export const mockErrorState: ErrorState = {
+  error: ''
 };

@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 
-type ErrorState = {
+export type ErrorState = {
   error: string;
 };
 
