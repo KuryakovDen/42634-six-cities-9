@@ -3,10 +3,10 @@ import {changeActiveLocation} from '../../store/city/city';
 import {memo} from 'react';
 
 function LocationTabs(): JSX.Element {
-  const locations = useAppSelector(({CITY}) => CITY.locationList);
-
-  const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
   const dispatch = useAppDispatch();
+
+  const locations = useAppSelector(({CITY}) => CITY.locationList);
+  const activeLocation = useAppSelector(({CITY}) => CITY.activeLocation);
 
   return (
     <div className="tabs">
