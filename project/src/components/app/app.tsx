@@ -16,16 +16,14 @@ function App(): JSX.Element {
   const authStatus = useAppSelector(({ AUTH }) => AUTH.authStatus);
   const offerList = useAppSelector(({OFFER}) => OFFER.offerList);
   const offerListLoaded = useAppSelector(({OFFER}) => OFFER.isOfferListLoaded);
-
-  const locations = [...new Set(offerList.map((offer) => offer.city.name))]
-    .sort((prevLocation, nextLocation) => prevLocation > nextLocation ? 1 : -1);
+  const locations = [...new Set(offerList.map((offer) => offer.city.name))];
 
   useEffect(() => {
     dispatch(loadOffers([]));
   }, []);
 
   useEffect(() => {
-    dispatch(setLocationList([locations[5], locations[2], locations[1], locations[0], locations[4], locations[3]]));
+    dispatch(setLocationList(locations.sort((prevLocation, nextLocation) => prevLocation > nextLocation ? 1 : -1)));
   }, [offerListLoaded]);
 
   return (
