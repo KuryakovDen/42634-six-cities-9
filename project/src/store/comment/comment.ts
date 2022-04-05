@@ -2,7 +2,7 @@ import {Review} from '../../types/review';
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 
-type CommentState = {
+export type CommentState = {
   commentList: Review[] | [];
   isCommentListLoaded: boolean;
   newCommentList: Review[] | [];

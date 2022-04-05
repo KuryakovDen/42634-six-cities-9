@@ -1,9 +1,9 @@
 import {authSlice, changeAuthStatus, setAuthStatusLoading, setUserLogin} from './auth';
 import {AuthStatus} from '../../const';
-import {authMockState} from '../../mocks';
+import {mockAuthState} from '../../mocks';
 
 describe('Reducer: authSlice', () => {
-  const state = authMockState;
+  const state = mockAuthState;
 
   describe('authStatus changing tests', () => {
     it('set authStatus to AuthStatus.Auth', () => {

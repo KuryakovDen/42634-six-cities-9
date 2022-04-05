@@ -1,8 +1,8 @@
 import {setLocationList, changeActiveLocation, citySlice} from './city';
-import {cityMockState} from '../../mocks';
+import {mockCityState} from '../../mocks';
 
 describe('Reducer: citySlice', () => {
-  const state = cityMockState;
+  const state = mockCityState;
 
   describe('locationList tests', () => {
     it('set some cities to locationList', () => {
