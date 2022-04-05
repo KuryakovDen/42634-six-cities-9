@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {NameSpace} from '../../const';
 
-type CityState = {
+export type CityState = {
   locationList: string[] | [];
   activeLocation: string;
 };
