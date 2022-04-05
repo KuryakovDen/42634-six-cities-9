@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {AuthStatus, NameSpace} from '../../const';
 
-type AuthState = {
+export type AuthState = {
   authStatus: AuthStatus,
   isAuthStatusLoading: boolean;
   userLogin: string;
