@@ -11,12 +11,12 @@ describe('Reducer: citySlice', () => {
     });
 
     it('set empty locationList', () => {
-      const state = { activeLocation: 'Cologne', locationList: ['Paris', 'Amsterdam'] }
+      const localState = { activeLocation: 'Cologne', locationList: ['Paris', 'Amsterdam'] };
 
-      expect(citySlice.reducer(state, setLocationList([])))
+      expect(citySlice.reducer(localState, setLocationList([])))
         .toEqual({ activeLocation: 'Cologne', locationList: [] });
     });
-  })
+  });
 
   it('set another activeLocation', () => {
     expect(citySlice.reducer(state, changeActiveLocation('Hamburg')))

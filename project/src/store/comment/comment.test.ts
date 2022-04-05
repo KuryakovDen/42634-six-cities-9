@@ -17,13 +17,13 @@ describe('Reducer: commentSlice', () => {
     });
 
     it('set emptyCommentList', () => {
-      const state = {
+      const localState = {
         commentList: [comment],
         newCommentList: [],
-        isCommentListLoaded: false
+        isCommentListLoaded: false,
       };
 
-      expect(commentSlice.reducer(state, loadCommentList([])))
+      expect(commentSlice.reducer(localState, loadCommentList([])))
         .toEqual({ commentList: [], newCommentList: [], isCommentListLoaded: false });
     });
   });
@@ -35,13 +35,13 @@ describe('Reducer: commentSlice', () => {
     });
 
     it('set newCommentList', () => {
-      const state = {
+      const localState = {
         commentList: [],
         newCommentList: [comment],
-        isCommentListLoaded: false
+        isCommentListLoaded: false,
       };
 
-      expect(commentSlice.reducer(state, loadNewCommentList([])))
+      expect(commentSlice.reducer(localState, loadNewCommentList([])))
         .toEqual({ commentList: [], newCommentList: [], isCommentListLoaded: false });
     });
   });

@@ -15,9 +15,9 @@ describe('Reducer: errorSlice', () => {
   });
 
   it('set empty string for error', () => {
-    const state = { error: 'Some error' };
+    const localState = { error: 'Some error' };
 
-    expect(errorSlice.reducer(state, setError('')))
+    expect(errorSlice.reducer(localState, setError('')))
       .toEqual({ error: '' });
   });
 });

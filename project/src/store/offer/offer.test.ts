@@ -27,10 +27,10 @@ describe('Reducer: offerSlice', () => {
     });
 
     it('set empty offerList', () => {
-      const state = { ...mockOfferState, offerList: [mockOffer] };
+      const localState = { ...mockOfferState, offerList: [mockOffer] };
 
-        expect(offerSlice.reducer(state, loadOffers([])))
-          .toEqual({ ...state, offerList: []});
+      expect(offerSlice.reducer(state, loadOffers([])))
+        .toEqual({ ...localState, offerList: []});
     });
   });
 
@@ -56,10 +56,10 @@ describe('Reducer: offerSlice', () => {
     });
 
     it('set empty neighborOffers', () => {
-      const state = { ...mockOfferState, neighborOffers: [mockOffer] };
+      const localState = { ...mockOfferState, neighborOffers: [mockOffer] };
 
-      expect(offerSlice.reducer(state, loadNeighborOffers([])))
-        .toEqual({ ...state, neighborOffers: []});
+      expect(offerSlice.reducer(localState, loadNeighborOffers([])))
+        .toEqual({ ...localState, neighborOffers: []});
     });
   });
 
@@ -80,10 +80,10 @@ describe('Reducer: offerSlice', () => {
     });
 
     it('set empty favoriteOffers', () => {
-      const state = { ...mockOfferState, favoriteOffers: [mockOffer] };
+      const localState = { ...mockOfferState, favoriteOffers: [mockOffer] };
 
-      expect(offerSlice.reducer(state, loadFavoriteOffers([])))
-        .toEqual({ ...state, favoriteOffers: []});
+      expect(offerSlice.reducer(localState, loadFavoriteOffers([])))
+        .toEqual({ ...localState, favoriteOffers: []});
     });
   });
 });

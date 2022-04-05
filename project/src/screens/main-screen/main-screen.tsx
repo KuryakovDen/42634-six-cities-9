@@ -33,7 +33,7 @@ function MainScreen(): JSX.Element {
       default:
         return offersForActiveLocation;
     }
-  }, [sortingOption, activeLocation, offerList]);
+  }, [sortingOption, activeLocation, offerList, offersForActiveLocation]);
 
   return offerList.length > 0 ? (
     (

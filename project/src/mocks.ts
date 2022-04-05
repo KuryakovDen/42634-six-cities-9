@@ -8,12 +8,12 @@ import {OfferState} from './store/offer/offer';
 import {Offer} from './types/offer';
 
 export const mockAuthState: AuthState = {
-  authStatus: AuthStatus.Unknown, isAuthStatusLoading: false, userLogin: ''
+  authStatus: AuthStatus.Unknown, isAuthStatusLoading: false, userLogin: '',
 };
 
 export const mockCityState: CityState = {
   locationList: [],
-  activeLocation: 'Cologne'
+  activeLocation: 'Cologne',
 };
 
 export const mockCommentState: CommentState = {
@@ -32,11 +32,11 @@ export const mockComment: Review = {
     name: 'Denis',
     isPro: false,
     avatarUrl: 'avatar.jpg',
-  }
+  },
 };
 
 export const mockErrorState: ErrorState = {
-  error: ''
+  error: '',
 };
 
 export const mockOfferState: OfferState = {
@@ -59,8 +59,8 @@ export const mockOffer: Offer = {
     location: {
       latitude: 52.388540000000006,
       longitude: 4.899976,
-      zoom: 16
-    }
+      zoom: 16,
+    },
   },
   description: 'hotel',
   goods: ['Window', 'Bed'],
@@ -68,7 +68,7 @@ export const mockOffer: Offer = {
     id: 25,
     avatarUrl: 'img/avatar-angelina.jpg',
     isPro: true,
-    name: 'Angelina'
+    name: 'Angelina',
   },
   images: ['image1.jpg', 'image2.jpg'],
   isFavorite: false,
@@ -76,12 +76,12 @@ export const mockOffer: Offer = {
   location: {
     latitude: 52.388540000000006,
     longitude: 4.899976,
-    zoom: 16
+    zoom: 16,
   },
   maxAdults: 2,
   previewImage: 'previewImage1.jpg',
   price: 500,
   rating: 4.7,
   title: 'Cologne Department Hostel',
-  type: 'hostel'
+  type: 'hostel',
 };
